@@ -1,0 +1,67 @@
+$background-color_1: rgba(255, 255, 255, 0.5);
+$background-color_2: #ffe5b4;
+$background-color_3: #db7611;
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+
+  .slider-list {
+    width: 100%;
+    height: 400px; // фиксированная высота для слайдов
+    object-fit: cover; // сохраняет пропорции изображения без искажений
+  }
+
+  @media (max-width: 1360px) {
+    .slider-list {
+      height: 300px;
+    }
+  }
+  @media (max-width: 1060px) {
+    .slider-list {
+      height: 200px;
+    }
+  }
+
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: $background-color_1;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+}
+.slider-button.prev {
+  left: 10px;
+}
+.slider-button.next {
+  right: 10px;
+}
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.slider-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: $background-color_2;
+  border: none;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: $background-color_3;
+  }
+}
+.slider-dot.active {
+  background-color: $background-color_2;
+  outline: 3px solid #db7611;
+}

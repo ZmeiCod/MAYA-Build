@@ -1,0 +1,128 @@
+@import '../variables';
+
+.pizza-block {
+  width: 280px;
+  text-align: center;
+  margin-bottom: 65px;
+  transition: all 0.2s ease-in-out;
+  // background-color: $black;
+  border-radius: 50px;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 280px;
+    height: 200px;
+    border-radius: 50px;
+  }
+
+  &__selector {
+    display: flex;
+    background-color: $creamy;
+    border-radius: 50px;
+    flex-direction: column;
+    padding: 6px;
+    margin: 10px;
+
+    ul {
+      display: flex;
+      flex: 1;
+
+      
+
+      li {
+        padding: 8px;
+        flex: 1;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        @include noselect();
+        &.active {
+          background: $orange;
+          transition: 0.3s;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+          border-radius: 50px;
+          cursor: auto;
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  &__price {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: 0.015em;
+    color: $orange;
+  }
+}
+
+.item-block{
+
+  &__header {
+    display: flex;
+    justify-content: space-between; // чтобы название было слева, а вес справа
+    align-items: center; // по вертикали выровнять элементы по центру
+    margin: 10px; // отступ между заголовком и изображением
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1%;
+    color: $orange;
+  }
+
+  &__weight {
+    color: $gray;
+    font-size: 16px; // измените размер шрифта, если нужно
+  }
+
+  &__description {
+    color: $gray;
+    max-height: 40px; // Максимальная высота, измените при необходимости
+    overflow: hidden; // Скрыть все, что выходит за пределы
+    text-overflow: ellipsis; // Добавить многоточие
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; // Количество строк, которые показываются
+    cursor: pointer; // Указатель при наведении
+    transition: max-height 0.2s ease; // Плавная анимация при наведении
+  }
+  
+  // Стили для дополнительного текста, который отображается при наведении
+  &__description-hover {
+    display: none; // Скрыт по умолчанию
+    position: absolute; // Позиционирование
+    background-color: $black; // Цвет фона (определите переменную)
+    color: $gray;
+    max-width: 280px; // Ширина блока, чтобы не выходило за границы
+    padding: 10px;
+    border-radius: 8px; // Закругление углов
+    z-index: 10; // Чтобы был сверху
+  }
+
+  &:hover {
+    &__description {
+      max-height: none; // Убираем ограничение высоты
+    }
+
+    &__description-hover {
+      display: block; // Показываем дополнительный текст
+    }
+  }
+}

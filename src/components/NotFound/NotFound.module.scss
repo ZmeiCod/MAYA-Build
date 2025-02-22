@@ -1,0 +1,81 @@
+.root {
+  padding: 100px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  //
+
+  .textBlock {
+    max-width: 600px;
+    width: 100%; // Устанавливаем ширину в 100% для адаптивности
+    padding: 0 20px; // Добавим немного отступов для мобильных экранов
+  }
+
+  h1 {
+    color: #db7611;
+    margin-bottom: 30px; // Уменьшаем отступы для мобильных устройств
+    font-size: 40px; // Уменьшаем размер шрифта
+    transition: all 0.3s; 
+  }
+
+  h3 {
+    color: #adadad;
+    margin-bottom: 30px; // Уменьшаем отступы
+    font-size: 18px; // Уменьшаем размер шрифта
+    word-break: break-all;
+    transition: all 0.3s;
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center; // Центрируем кнопку
+    
+  }
+
+  span{
+    font-family: "KanitCyrillic";
+  }
+
+  .imageBlock {
+    max-width: 100%; // Ограничиваем изображение по ширине
+    height: auto; // Сохраняем пропорции изображения
+  }
+}
+
+// Медиа-запросы для улучшения адаптивности
+@media (max-width: 768px) {
+  .root {
+    padding: 50px; // Уменьшаем паддинг для средних экранов
+    flex-direction: column-reverse;
+  }
+
+  h1 {
+    font-size: 32px; // Уменьшаем размер шрифта для заголовка
+  }
+
+  h3 {
+    font-size: 16px; // Уменьшаем размер шрифта для субзаголовка
+  }
+}
+
+@media (max-width: 480px) {
+  .root {
+    padding: 20px; // Еще меньше паддинга для маленьких экранов
+  }
+
+  h1 {
+    font-size: 28px; // Еще меньше размер шрифта
+  }
+
+  h3 {
+    font-size: 14px; // Еще меньше размер шрифта
+  }
+
+  .button {
+    width: 100%; // Делаем кнопку шириной 100% для мобильных устройств
+  }
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../redux/cart/slice";
 
-function PizzaBlock({ id, image, title, price, description, weight, categoryId, isPizza }) {
+function PizzaBlock({ id, article, image, title, price, description, weight, categoryId, isPizza }) {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) =>
     state.cart.items.find((obj) => obj.id === id)
@@ -14,6 +14,7 @@ function PizzaBlock({ id, image, title, price, description, weight, categoryId, 
   const inClickAdd = () => {
     const item = {
       id,
+      article,
       description,
       title,
       price,
@@ -29,6 +30,7 @@ function PizzaBlock({ id, image, title, price, description, weight, categoryId, 
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
         <img className="pizza-block__image" src={image} alt="Pizza" />
+        <p>{article}</p>
         <div className="item-block__header">
           <h1 className="item-block__title">{title}</h1>
           <h3 className="item-block__weight">{weight} г.</h3>

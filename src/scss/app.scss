@@ -90,12 +90,14 @@ body {
 
   &__error-info {
     margin: 100px auto;
-    width: 500px;
+    width: 90%; // Установим ширину в 90% для адаптивности
+    max-width: 500px; // Максимальная ширина остается
     text-align: center;
+    padding: 0 20px; // Добавляем отступы по бокам для маленьких экранов
 
     h1 {
       font-size: 36px;
-      font-weight: 700;
+
       margin-bottom: 10px;
       color: $orange;
     }
@@ -104,11 +106,29 @@ body {
       font-size: 26px;
       color: $gray;
     }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 26px;
+        margin-bottom: 10px;
+        color: $orange;
+      }
+
+      h3 {
+        font-size: 16px;
+        color: $gray;
+      }
+    }
+  }
+
+  &__basket {
+    border-radius: 50px;
+    background-color: $creamy;
   }
 
   &__title {
     font-weight: 800;
-    font-size: 38px;
+    font-size: 32px;
     margin-top: 40px;
     margin-bottom: 50px;
     color: $orange;
@@ -192,16 +212,69 @@ body {
   }
 }
 
+.basket {
+  &__user-data{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 30px;
+
+    &__row{
+      display: flex;
+      justify-content: space-between;
+
+      & > div {
+        flex: 1;
+        & + div {
+          margin-left: 10px; // Отступ между инпутами
+        }
+      }
+    }
+
+    &__row:last-child{
+      padding-bottom: 30px;
+    }
+
+    &__title{
+
+        margin: 0 0 5px; 
+        font-size: 25px;
+      
+    }
+
+    &__input{
+      width: 100%;
+      max-width: 100%;
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #ccc; // Цвет рамки инпута
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: $orange; // Цвет рамки при фокусе
+      outline: none; // Убираем бордер по умолчанию
+    }
+
+    &::placeholder {
+      color: #999; // Цвет текста плейсхолдера
+    }
+    }
+
+  }
+
+}
+
 .cart {
   margin-top: 60px;
   padding-bottom: 1px;
-
   border-radius: 50px;
 
   &__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 60px;
+    border-bottom: 1px solid $orange;
   }
 
   .content__title {
@@ -257,12 +330,21 @@ body {
     display: block;
   }
 
+  
+
+  &__item:last-child {
+    border-bottom: 1px solid $orange;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
   &__item {
     display: flex;
     width: 100%;
-    border-top: 1px solid $orange;
+    border-bottom: 1px solid $orange;
     padding-top: 30px;
-    margin-top: 30px;
+    padding-bottom: 30px;
+    // margin-top: 30px;
 
     &-img {
       display: flex;
@@ -271,7 +353,7 @@ body {
       width: 10%;
 
       img {
-        width: 80px;
+        width: 120px;
         height: 80px;
       }
     }
@@ -302,7 +384,7 @@ body {
       width: 13%;
 
       &-minus {
-        svg {
+        img {
           path:first-of-type {
             display: none;
           }
@@ -324,7 +406,7 @@ body {
             }
           }
 
-          svg path {
+          img path {
             fill: #787878;
           }
         }
@@ -358,7 +440,7 @@ body {
         border-color: darken($color: $orange, $amount: 10);
       }
 
-      svg {
+      img {
         transform: rotate(45deg);
 
         path {
@@ -367,7 +449,7 @@ body {
       }
 
       .button {
-        svg {
+        img {
           width: 11.5px;
           height: 11.5px;
           position: relative;
@@ -482,4 +564,6 @@ body {
       font-size: 18px;
     }
   }
+
 }
+

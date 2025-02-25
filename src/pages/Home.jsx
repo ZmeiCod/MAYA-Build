@@ -5,7 +5,6 @@ import sliders from "../assets/sliders.json";
 import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
 import Carousel from "../components/Carousel";
-import Skeleton from "../components/PizzaBlock/Skeleton";
 import { setCategoryId } from "../redux/filter/slice";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -18,14 +17,12 @@ export default function Home() {
   const [items, setItems] = React.useState([]);
   const [scrollPosition, setScrollPosition] = React.useState(0);
   const [categories, setCategories] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
 
   const getProducts = async () => {
-    setIsLoading(true);
     const category = categoryId > 0 ? `categoryId=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
@@ -40,7 +37,6 @@ export default function Home() {
       console.log(error);
       setItems([]);
     }
-    setIsLoading(false);
   };
 
   React.useEffect(() => {
@@ -65,10 +61,6 @@ export default function Home() {
     getProducts();
   }, [categoryId, searchValue]);
 
-  const skeletons = [...new Array(8)].map((_, index) => (
-    <Skeleton key={index} />
-  ));
-
   React.useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
@@ -84,7 +76,7 @@ export default function Home() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // Это обеспечит плавный скролл
+      behavior: "smooth",
     });
   };
 
@@ -104,6 +96,7 @@ export default function Home() {
               <PizzaBlock
                 key={item.id}
                 id={item.id}
+                article={item.article}
                 image={REACT_APP_API_URL + item.image}
                 title={item.name}
                 price={item.price}
@@ -117,7 +110,7 @@ export default function Home() {
         </div>
       );
     }
-    return null; // Не возвращаем ничего, если блюд нет
+    return null;
   });
 
   return (

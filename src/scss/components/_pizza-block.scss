@@ -71,6 +71,15 @@
   }
 }
 
+.basket{
+  &__image{
+    width: 280px;
+    height: 200px;
+    border-radius: 10px;
+  }
+}
+
+
 .item-block{
 
   &__header {

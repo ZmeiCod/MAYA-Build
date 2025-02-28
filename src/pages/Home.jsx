@@ -127,7 +127,7 @@ export default function Home() {
               />
             </div>
             {hasProducts ? (
-              productItems // Показываем продукты, если они есть
+              productItems
             ) : (
               <div className="content__error-info">
                 <h1>Блюда не найдены 😕</h1>

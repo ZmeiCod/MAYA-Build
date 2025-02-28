@@ -87,6 +87,16 @@ body {
 
 .content {
   margin-bottom: 35px;
+  // display: flex; ///////////////////////////////////////////////////////////////
+
+  // &__left{
+  //   // display: flex;
+  //   width: 60%;
+  //   flex-direction: column;
+  // }
+  // &__right{
+  //   margin-left: auto;
+  // }
 
   &__error-info {
     margin: 100px auto;
@@ -122,6 +132,7 @@ body {
   }
 
   &__basket {
+    margin-top: 60px;
     border-radius: 50px;
     background-color: $creamy;
   }
@@ -213,13 +224,32 @@ body {
 }
 
 .basket {
-  &__user-data{
+  margin-top: 60px;
+  padding-bottom: 1px;
+  border-radius: 50px;
+
+  &__bottom {
+    padding: 30px 0;
+    // display: flex;
+    &--input{
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+  }
+
+  &__user-data {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding-top: 30px;
 
-    &__row{
+    &__error {
+      color: "red";
+      font-size: "12px";
+    }
+
+    &__row {
       display: flex;
       justify-content: space-between;
 
@@ -229,39 +259,42 @@ body {
           margin-left: 10px; // Отступ между инпутами
         }
       }
+
+      textarea {
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 100px;
+        resize: none;
+      }
     }
 
-    &__row:last-child{
+    &__row:last-child {
       padding-bottom: 30px;
     }
 
-    &__title{
-
-        margin: 0 0 5px; 
-        font-size: 25px;
-      
+    &__title {
+      margin: 0 0 5px;
+      font-size: 25px;
     }
 
-    &__input{
+    &__input {
       width: 100%;
       max-width: 100%;
-    padding: 10px;
-    border-radius: 25px;
-    border: 1px solid #ccc; // Цвет рамки инпута
-    transition: border-color 0.3s;
+      padding: 10px;
+      border-radius: 25px;
+      border: 1px solid #ccc; // Цвет рамки инпута
+      transition: border-color 0.3s;
 
-    &:focus {
-      border-color: $orange; // Цвет рамки при фокусе
-      outline: none; // Убираем бордер по умолчанию
-    }
+      &:focus {
+        border-color: $orange; // Цвет рамки при фокусе
+        outline: none; // Убираем бордер по умолчанию
+      }
 
-    &::placeholder {
-      color: #999; // Цвет текста плейсхолдера
+      &::placeholder {
+        color: #999; // Цвет текста плейсхолдера
+      }
     }
-    }
-
   }
-
 }
 
 .cart {
@@ -273,7 +306,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 60px;
     border-bottom: 1px solid $orange;
   }
 
@@ -329,8 +361,6 @@ body {
   .content__items {
     display: block;
   }
-
-  
 
   &__item:last-child {
     border-bottom: 1px solid $orange;
@@ -469,6 +499,7 @@ body {
     &-details {
       display: flex;
       justify-content: space-between;
+      flex-direction: column;
 
       span {
         font-size: 22px;
@@ -564,6 +595,4 @@ body {
       font-size: 18px;
     }
   }
-
 }
-

@@ -1,12 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { BasketItem } from "../components/BasketItem";
+import { z } from "zod";
+
+import { BasketEmpty } from "../components/Basket/BasketEmpty";
+import { BasketItem } from "../components/Basket/BasketItem";
 import { clearItems } from "../redux/cart/slice";
-import { BasketEmpty } from "../components/BasketEmpty";
+import { InputField } from "../utils/inputField";
+import { phoneNumberChange } from "../utils/phoneCheck";
 
 import basketClear from "../assets/ui/basketClear.svg";
 import arrowBasket from "../assets/ui/arrowBack.svg";
+import { AddressInput } from "../components/Basket/BasketAddressInput";
 
 export default function Basket() {
   const dispatch = useDispatch();
@@ -18,17 +23,121 @@ export default function Basket() {
   const [phone, setPhone] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [isAgreed, setIsAgreed] = React.useState(false);
+  const [payId, setPayId] = React.useState("");
+  const [paymentMethod, setPaymentMethod] = React.useState("0");
+  const [errors, setErrors] = React.useState({});
 
-  const isFormValid = name !== "" && phone !== "" && address !== "" && isAgreed;
+  const schema = z.object({
+    name: z.string().min(1, "Имя обязательно"),
+    email: z.string().email("Неверный формат электронной почты").optional(),
+    phone: z
+      .string()
+      .regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, "Неверный формат телефона"),
+    address: z
+      .object({
+        value: z.string().min(1, "Адрес обязателен"),
+      })
+      .transform((address) => address.value),
+    isAgreed: z.boolean().refine((value) => value === true, {
+      message: "Необходимо согласие",
+    }),
+    paymentMethod: z
+      .enum(["1", "2"])
+      .refine((value) => value === "1" || value === "2", {
+        message: "Выберите метод оплаты",
+      }),
+  });
+  
+  console.log(address)
 
-  const handleAgreedChange = () => {
-    setIsAgreed(!isAgreed);
+  const handlePaymentChange = (event) => {
+    setPaymentMethod(event.target.value);
+    setPayId(event.target.value);
   };
 
-  const onClickMakeOrder = () => {
-    const articles = items.map((item) => item.article); // Извлечение артикулов
-    console.log(articles); // Вывод артикулов в консоль
+  const products = items.map((item) => item.article);
+  const productQuantities = items.map((item) => item.count);
+
+  // console.log(products);
+  // console.log(productQuantities);
+
+  const productModifiers = {};
+
+  const params = {
+    secret:
+      "hbyiYhytkr9iQttbt87dzERYes7SRYd2ZA8FGs2YHZ6ieknAhhEGNhrTBiAe6E5S43iAf9fRYa44ndrAnT644iHsy8zrBr7rdfQkeZ44ZTSa27BaRy4GFA24zifZBdbFiSSsDGfnr3nbYRbB967EsTyQ6DBtFD2SfF8HbdZs6atQRydQn9fGTDiN6N6BbTeikdTnhFGbF3SiiY3BT78BAfbsT8TZR3755RfbhQdREY4QFRdkNaQ9fRs4N9", // ключ api
+    street: address,
+    name: name,
+    phone: phone,
+    descr: "ИГНОРИРУЙТЕ, ЭТО ТЕСТОВЫЙ ЗАКАЗ С НОВОГО САЙТА!",
+    pay: payId,
+    mail: email ? email : "",
+  };
+  console.log(payId);
+  console.log(params);
+
+  // формируем данные для отправки
+  const formData = new URLSearchParams();
+
+  for (const key in params) {
+    formData.append(key, params[key]);
   }
+
+  // содержимое заказа
+  products.forEach((product, index) => {
+    formData.append(`product[${index}]`, product);
+    formData.append(`product_kol[${index}]`, productQuantities[index]);
+
+    // Добавление модификаторов, если они существуют
+    if (productModifiers[index] !== undefined) {
+      formData.append(`product_mod[${index}]`, productModifiers[index]);
+    }
+  });
+
+  const onClickMakeOrder = () => {
+    try {
+      schema.parse({
+        name,
+        email: email ? email : undefined,
+        phone,
+        address: {
+          value: address, // передаем как объект
+        },
+        isAgreed,
+        paymentMethod,
+      });
+
+      fetch("https://app.frontpad.ru/api/index.php?new_order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formData,
+        
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Сетевая ошибка");
+          }
+          
+          return response.text();
+        })
+        .then((result) => {
+          alert('status ok')
+          console.log(result);
+        })
+        .catch((error) => {
+          alert('status non ok')
+          console.error("Ошибка:", error);
+        });
+    } catch (e) {
+      console.error("Validation errors:", e.errors);
+      const validationErrors = e.flatten();
+      setErrors(validationErrors.fieldErrors); // Установите ошибки в состоянии
+    }
+  };
+
+  
 
   const onClickClear = () => {
     if (window.confirm("Очистить все товары в корзине?")) {
@@ -61,6 +170,7 @@ export default function Basket() {
             </div>
           </div>
         </div>
+
         <div className="content__basket">
           <div className="container">
             <div className="cart__top">
@@ -69,97 +179,204 @@ export default function Basket() {
             <div className="basket__user-data">
               <div className="basket__user-data__row">
                 <div>
-                  <h3 className="basket__user-data__title">Имя</h3>
-                  <input
-                    className="basket__user-data__input"
-                    type="text"
-                    placeholder="Введите имя"
+                  <InputField
+                    label="Имя"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    placeholder="Введите имя"
                   />
+                  {errors.name && (
+                    <div
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                        paddingLeft: "15px",
+                      }}
+                    >
+                      {errors.name}
+                    </div>
+                  )}
                 </div>
                 <div>
-                  <h3 className="basket__user-data__title">E-mail</h3>
-                  <input
-                    className="basket__user-data__input"
-                    type="text"
-                    placeholder="Введите e-mail"
+                  <InputField
+                    label="E-mail"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Введите e-mail"
                   />
+                  {errors.email && email && (
+                    <div
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                        paddingLeft: "15px",
+                      }}
+                    >
+                      {errors.email}
+                    </div>
+                  )}
                 </div>
                 <div>
-                  <h3 className="basket__user-data__title">Телефон</h3>
-                  <input
-                    className="basket__user-data__input"
-                    type="number"
-                    placeholder="Введите телефон"
+                  <InputField
+                    label="Телефон"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => phoneNumberChange(e, setPhone)}
+                    placeholder="+7 (___) ___-__-__"
+                    mask="+7 (999) 999-99-99"
                   />
+                  {errors.phone && (
+                    <div
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                        paddingLeft: "15px",
+                      }}
+                    >
+                      {errors.phone}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="basket__user-data__row">
                 <div>
-                  <h3 className="basket__user-data__title">Адрес доставки</h3>
-                  <input
-                    className="basket__user-data__input"
-                    type="text"
+                  <AddressInput
                     placeholder="Введите адрес доставки"
+                    label="Адрес доставки"
+                    value={address}
+                    onChange={(value) => setAddress(value)}
+                  />
+
+                  {errors.address && (
+                    <div
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                        paddingLeft: "15px",
+                      }}
+                    >
+                      {errors.address}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="basket__user-data__row">
+                <div>
+                  {/* <InputField
+                    label="Адрес доставки"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="basket__user-data__row">
-                <div>
+                    placeholder="Введите адрес доставки"
+                  /> */}
                   <h3 className="basket__user-data__title">
                     Комментарий к заказу
                   </h3>
                   <textarea
                     className="basket__user-data__input"
-                    type="text"
+                    rows={5}
+                    maxLength="100"
                     placeholder="Укажите тут дополнительную информацию для курьера"
-                  />
+                  ></textarea>
                 </div>
               </div>
               <div className="basket__user-data__row">
                 <div>
                   <input
                     type="checkbox"
-                    id="cbtest"
+                    id="approval"
                     checked={isAgreed}
-                    onChange={handleAgreedChange}
+                    onChange={() => setIsAgreed((prev) => !prev)}
                   />
-                  <label htmlFor="cbtest" className="check-box">
+                  <label
+                    style={{ marginLeft: "20px" }}
+                    htmlFor="approval"
+                    className="check-box"
+                  >
                     Я даю согласие на обработку моих персональных данных
                   </label>
+                  {errors.isAgreed && (
+                    <div
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                        paddingLeft: "15px",
+                      }}
+                    >
+                      {errors.isAgreed}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
+
         <div className="content__basket">
           <div className="container">
-            <div className="cart__bottom">
-              <div>
-                <input type="checkbox" id="cbtest" />
-                <label htmlFor="cbtest" className="check-box">
-                  Наличными
-                </label>
-                <input type="checkbox" id="cbtest" />
-                <label htmlFor="cbtest" className="check-box">
-                  Картой
-                </label>
-              </div>
+            <div className="basket__bottom">
+              <div style={{ display: "flex" }}>
+                <div
+                  // style={{ display: "flex" }}
+                  className="basket__bottom--input"
+                >
+                  <div>
+                    <input
+                      type="radio"
+                      id="1"
+                      name="paymentMethod"
+                      value="1"
+                      checked={paymentMethod === "1"}
+                      onChange={handlePaymentChange}
+                    />
+                    <label
+                      style={{ paddingLeft: "15px" }}
+                      htmlFor="1"
+                      className="check-box"
+                    >
+                      Наличными
+                    </label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      id="2"
+                      name="paymentMethod"
+                      value="2"
+                      checked={paymentMethod === "2"}
+                      onChange={handlePaymentChange}
+                    />
+                    <label
+                      style={{ paddingLeft: "15px" }}
+                      htmlFor="2"
+                      className="check-box"
+                    >
+                      Картой
+                    </label>
+                  </div>
 
-              <div className="cart__bottom-details">
-                <span>
-                  Всего товаров: <b>{totalCount}</b>
-                </span>
-                <span>
-                  Сумма заказа: <b>{totalPrice} ₽</b>
-                </span>
+                  {errors.paymentMethod && (
+                    <div
+                      style={{
+                        color: "red",
+                        fontSize: "10px",
+                        paddingLeft: "15px",
+                      }}
+                    >
+                      {errors.paymentMethod}
+                    </div>
+                  )}
+                </div>
+
+                <div
+                  style={{ marginLeft: "auto" }}
+                  className="cart__bottom-details"
+                >
+                  <span>
+                    Всего товаров: <b>{totalCount}</b>
+                  </span>
+                  <span>
+                    Сумма заказа: <b>{totalPrice} ₽</b>
+                  </span>
+                </div>
               </div>
               <div className="cart__bottom-buttons">
                 <Link

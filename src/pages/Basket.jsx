@@ -14,6 +14,8 @@ import arrowBasket from "../assets/ui/arrowBack.svg";
 import { AddressInput } from "../components/Basket/BasketAddressInput";
 
 export default function Basket() {
+  const frontpad = process.env.REACT_APP_API_FRONTPAD;
+
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector((state) => state.cart);
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
@@ -22,6 +24,7 @@ export default function Basket() {
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [address, setAddress] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [isAgreed, setIsAgreed] = React.useState(false);
   const [payId, setPayId] = React.useState("");
   const [paymentMethod, setPaymentMethod] = React.useState("0");
@@ -47,8 +50,8 @@ export default function Basket() {
         message: "Выберите метод оплаты",
       }),
   });
-  
-  console.log(address)
+
+  console.log(address);
 
   const handlePaymentChange = (event) => {
     setPaymentMethod(event.target.value);
@@ -58,37 +61,29 @@ export default function Basket() {
   const products = items.map((item) => item.article);
   const productQuantities = items.map((item) => item.count);
 
-  // console.log(products);
-  // console.log(productQuantities);
-
   const productModifiers = {};
 
   const params = {
-    secret:
-      "hbyiYhytkr9iQttbt87dzERYes7SRYd2ZA8FGs2YHZ6ieknAhhEGNhrTBiAe6E5S43iAf9fRYa44ndrAnT644iHsy8zrBr7rdfQkeZ44ZTSa27BaRy4GFA24zifZBdbFiSSsDGfnr3nbYRbB967EsTyQ6DBtFD2SfF8HbdZs6atQRydQn9fGTDiN6N6BbTeikdTnhFGbF3SiiY3BT78BAfbsT8TZR3755RfbhQdREY4QFRdkNaQ9fRs4N9", // ключ api
+    secret: frontpad, // ключ api
     street: address,
     name: name,
     phone: phone,
-    descr: "ИГНОРИРУЙТЕ, ЭТО ТЕСТОВЫЙ ЗАКАЗ С НОВОГО САЙТА!",
+    descr: description ? description : "",
     pay: payId,
     mail: email ? email : "",
   };
-  console.log(payId);
   console.log(params);
 
-  // формируем данные для отправки
   const formData = new URLSearchParams();
 
   for (const key in params) {
     formData.append(key, params[key]);
   }
 
-  // содержимое заказа
   products.forEach((product, index) => {
     formData.append(`product[${index}]`, product);
     formData.append(`product_kol[${index}]`, productQuantities[index]);
 
-    // Добавление модификаторов, если они существуют
     if (productModifiers[index] !== undefined) {
       formData.append(`product_mod[${index}]`, productModifiers[index]);
     }
@@ -101,10 +96,11 @@ export default function Basket() {
         email: email ? email : undefined,
         phone,
         address: {
-          value: address, // передаем как объект
+          value: address,
         },
         isAgreed,
         paymentMethod,
+        description: description ?description : undefined,
       });
 
       fetch("https://app.frontpad.ru/api/index.php?new_order", {
@@ -113,31 +109,28 @@ export default function Basket() {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: formData,
-        
       })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Сетевая ошибка");
           }
-          
+
           return response.text();
         })
         .then((result) => {
-          alert('status ok')
+          alert("status ok");
           console.log(result);
         })
         .catch((error) => {
-          alert('status non ok')
+          alert("status non ok");
           console.error("Ошибка:", error);
         });
     } catch (e) {
       console.error("Validation errors:", e.errors);
       const validationErrors = e.flatten();
-      setErrors(validationErrors.fieldErrors); // Установите ошибки в состоянии
+      setErrors(validationErrors.fieldErrors);
     }
   };
-
-  
 
   const onClickClear = () => {
     if (window.confirm("Очистить все товары в корзине?")) {
@@ -158,7 +151,7 @@ export default function Basket() {
               <div className="cart__top">
                 <h1 className="content__title">1. Корзина</h1>
                 <div onClick={onClickClear} className="cart__clear">
-                  <img src={basketClear} />
+                  <img src={basketClear} alt='-'/>
                   <span>Очистить корзину</span>
                 </div>
               </div>
@@ -261,12 +254,7 @@ export default function Basket() {
               </div>
               <div className="basket__user-data__row">
                 <div>
-                  {/* <InputField
-                    label="Адрес доставки"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Введите адрес доставки"
-                  /> */}
+                  
                   <h3 className="basket__user-data__title">
                     Комментарий к заказу
                   </h3>
@@ -275,6 +263,7 @@ export default function Basket() {
                     rows={5}
                     maxLength="100"
                     placeholder="Укажите тут дополнительную информацию для курьера"
+                    onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>
               </div>

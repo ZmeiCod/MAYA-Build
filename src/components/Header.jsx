@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/img/logo.png";
-import Search from "./Search";
+// import Search from "./Search";
+import honeycombs from "../assets/img/honeycombs.svg";
 import { useSelector } from "react-redux";
 
 function Header() {
@@ -10,13 +11,16 @@ function Header() {
 
   return (
     <div className="header">
+      <div className="header__honeycombs">
+        <img src={honeycombs} alt="honeycombs" />
+      </div>
       <div className="container">
         <Link to="/">
           <div className="header__logo">
-            <img  src={logo} alt="Pizza logo" />
+            <img src={logo} alt="Pizza logo" />
           </div>
         </Link>
-        <Search />
+        {/* <Search /> */}
 
         <div className="header__cart">
           <Link to="/basket" className="button button--cart">

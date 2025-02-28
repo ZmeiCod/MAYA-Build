@@ -4,6 +4,20 @@
   background-color: $black;
   border-bottom: 1px solid $orange;
   padding: 20px 0;
+  overflow: hidden;
+  position: relative;
+
+  &__honeycombs {
+    position: absolute;
+    top: -0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 300px;
+
+    img{
+      object-fit: cover;
+    }
+  }
 
   .container {
     display: flex;

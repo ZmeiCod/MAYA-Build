@@ -1,7 +1,6 @@
 import React from "react";
 import { Context } from "../App";
 import arrow from "../assets/ui/arrow.svg";
-import sliders from "../assets/sliders.json";
 import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
 import Carousel from "../components/Carousel";
@@ -10,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
 export default function Home() {
-  const REACT_APP_API_URL = "http://localhost:5000/";
+  const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
   const { searchValue } = React.useContext(Context);
@@ -24,11 +23,11 @@ export default function Home() {
 
   const getProducts = async () => {
     const category = categoryId > 0 ? `categoryId=${categoryId}` : "";
-    const search = searchValue ? `&search=${searchValue}` : "";
+    // const search = searchValue ? `&search=${searchValue}` : "";
 
     try {
       const response = await axios.get(
-        `${REACT_APP_API_URL + "api/"}product?${category}${search}`
+        `${REACT_APP_API_URL + "api/"}product?${category}`
       );
       const products = response.data.rows;
       setItems(products);
@@ -97,11 +96,14 @@ export default function Home() {
                 key={item.id}
                 id={item.id}
                 article={item.article}
+                article40={item.article40}
                 image={REACT_APP_API_URL + item.image}
                 title={item.name}
                 price={item.price}
+                price40={item.price40}
                 description={item.description}
                 weight={item.weight}
+                weight40={item.weight40}
                 categoryId={item.categoryId}
                 isPizza={getCategoryIdByName("Пицца") === item.categoryId}
               />
@@ -115,7 +117,7 @@ export default function Home() {
 
   return (
     <>
-      <Carousel sliders={sliders} />
+      <Carousel/>
       <div className="wrapper">
         <div className="content">
           <div className="container">

@@ -2,7 +2,20 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../redux/cart/slice";
 
-function PizzaBlock({ id, article, image, title, price, description, weight, categoryId, isPizza }) {
+function PizzaBlock({
+  id,
+  article,
+  article40,
+  image,
+  title,
+  price,
+  price40,
+  description,
+  weight,
+  weight40,
+  categoryId,
+  isPizza,
+}) {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) =>
     state.cart.items.find((obj) => obj.id === id)
@@ -14,12 +27,12 @@ function PizzaBlock({ id, article, image, title, price, description, weight, cat
   const inClickAdd = () => {
     const item = {
       id,
-      article,
+      article: size === 40 ? article40 : article,
       description,
       title,
-      price,
+      price: size === 40 ? price40 : price,
       image,
-      weight,
+      weight: size === 40 ? weight40 : weight,
       categoryId,
       size: size,
     };
@@ -30,10 +43,10 @@ function PizzaBlock({ id, article, image, title, price, description, weight, cat
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
         <img className="pizza-block__image" src={image} alt="Pizza" />
-        <p>{article}</p>
+        <p>{size === 40 ? article40 : article}</p>
         <div className="item-block__header">
           <h1 className="item-block__title">{title}</h1>
-          <h3 className="item-block__weight">{weight} г.</h3>
+          <h3 className="item-block__weight">{size === 40 ? weight40 : weight} г.</h3>
         </div>
         {isPizza && (
           <div className="pizza-block__selector">
@@ -57,7 +70,7 @@ function PizzaBlock({ id, article, image, title, price, description, weight, cat
           <h3 className="item-block__description">{description}</h3>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} ₽</div>
+          <div className="pizza-block__price">от {size === 40 ? price40 : price} ₽</div>
           <button
             onClick={inClickAdd}
             className="button button--outline button--add item-block__button"

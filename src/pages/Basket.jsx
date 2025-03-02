@@ -64,7 +64,7 @@ export default function Basket() {
   const productModifiers = {};
 
   const params = {
-    secret: frontpad, // ключ api
+    secret: frontpad,
     street: address,
     name: name,
     phone: phone,

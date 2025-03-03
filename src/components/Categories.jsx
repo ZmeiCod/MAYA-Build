@@ -5,7 +5,7 @@ function Categories({ value, onClickCategory, categories }) {
     <div className="categories">
       <ul>
         <li
-          onClick={() => onClickCategory(0)} // 0 будет использоваться для отображения всех категорий
+          onClick={() => onClickCategory(0)}
           className={value === 0 ? "active" : ""}
         >
           Все
@@ -16,7 +16,7 @@ function Categories({ value, onClickCategory, categories }) {
             onClick={() => onClickCategory(category.id)}
             className={value === category.id ? "active" : ""}
           >
-            {category.name} {/* Используем name для отображения */}
+            {category.name}
           </li>
         ))}
       </ul>

@@ -14,8 +14,6 @@ import arrowBasket from "../assets/ui/arrowBack.svg";
 import { AddressInput } from "../components/Basket/BasketAddressInput";
 
 export default function Basket() {
-  const frontpad = process.env.REACT_APP_API_FRONTPAD;
-
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector((state) => state.cart);
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
@@ -51,8 +49,6 @@ export default function Basket() {
       }),
   });
 
-  console.log(address);
-
   const handlePaymentChange = (event) => {
     setPaymentMethod(event.target.value);
     setPayId(event.target.value);
@@ -64,7 +60,7 @@ export default function Basket() {
   const productModifiers = {};
 
   const params = {
-    secret: frontpad,
+    // secret: frontpad,
     street: address,
     name: name,
     phone: phone,
@@ -89,6 +85,9 @@ export default function Basket() {
     }
   });
 
+  console.log("Products:", products);
+  console.log("Quantities:", productQuantities);
+  console.log("FormData:", formData.toString());
   const onClickMakeOrder = () => {
     try {
       schema.parse({
@@ -100,10 +99,9 @@ export default function Basket() {
         },
         isAgreed,
         paymentMethod,
-        description: description ?description : undefined,
+        description: description ? description : undefined,
       });
-
-      fetch("https://app.frontpad.ru/api/index.php?new_order", {
+      fetch("http://localhost:5000/api/frontpad", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -115,7 +113,7 @@ export default function Basket() {
             throw new Error("Сетевая ошибка");
           }
 
-          return response.text();
+          return response.json();
         })
         .then((result) => {
           alert("status ok");
@@ -151,7 +149,7 @@ export default function Basket() {
               <div className="cart__top">
                 <h1 className="content__title">1. Корзина</h1>
                 <div onClick={onClickClear} className="cart__clear">
-                  <img src={basketClear} alt='-'/>
+                  <img src={basketClear} alt="-" />
                   <span>Очистить корзину</span>
                 </div>
               </div>
@@ -254,7 +252,6 @@ export default function Basket() {
               </div>
               <div className="basket__user-data__row">
                 <div>
-                  
                   <h3 className="basket__user-data__title">
                     Комментарий к заказу
                   </h3>
@@ -372,7 +369,7 @@ export default function Basket() {
                   to="/"
                   className="button button--outline button--add go-back-btn"
                 >
-                  <img src={arrowBasket} style={{ paddingRight: "10px" }} />
+                  <img src={arrowBasket} style={{ paddingRight: "10px" }} alt=''/>
 
                   <span>Вернуться назад</span>
                 </Link>

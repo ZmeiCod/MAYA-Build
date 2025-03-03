@@ -68,7 +68,7 @@ export default function Basket() {
     pay: payId,
     mail: email ? email : "",
   };
-  console.log(params);
+  // console.log(params);
 
   const formData = new URLSearchParams();
 
@@ -85,9 +85,9 @@ export default function Basket() {
     }
   });
 
-  console.log("Products:", products);
-  console.log("Quantities:", productQuantities);
-  console.log("FormData:", formData.toString());
+  // console.log("Products:", products);
+  // console.log("Quantities:", productQuantities);
+  // console.log("FormData:", formData.toString());
   const onClickMakeOrder = () => {
     try {
       schema.parse({
@@ -117,7 +117,7 @@ export default function Basket() {
         })
         .then((result) => {
           alert("status ok");
-          console.log(result);
+          // console.log(result);
         })
         .catch((error) => {
           alert("status non ok");

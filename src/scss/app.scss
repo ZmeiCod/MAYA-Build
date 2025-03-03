@@ -560,7 +560,7 @@ body {
 
   &--empty {
     margin: 80px auto;
-    width: 620px;
+    width: 100%;
     text-align: center;
 
     h2 {
@@ -584,6 +584,11 @@ body {
     img {
       display: block;
       width: 300px;
+
+      @media(max-width: 360px) {
+        width: 200px;
+      }
+
       margin: 45px auto 60px;
     }
 

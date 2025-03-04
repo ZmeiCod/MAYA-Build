@@ -230,7 +230,7 @@ body {
 
   &__bottom {
     padding: 30px 0;
-    // display: flex;
+ 
     &--input{
       display: flex;
       justify-content: space-between;
@@ -282,16 +282,16 @@ body {
       max-width: 100%;
       padding: 10px;
       border-radius: 25px;
-      border: 1px solid #ccc; // Цвет рамки инпута
+      border: 1px solid #ccc;
       transition: border-color 0.3s;
 
       &:focus {
-        border-color: $orange; // Цвет рамки при фокусе
-        outline: none; // Убираем бордер по умолчанию
+        border-color: $orange;
+        outline: none;
       }
 
       &::placeholder {
-        color: #999; // Цвет текста плейсхолдера
+        color: #999;
       }
     }
   }
@@ -374,7 +374,6 @@ body {
     border-bottom: 1px solid $orange;
     padding-top: 30px;
     padding-bottom: 30px;
-    // margin-top: 30px;
 
     &-img {
       display: flex;

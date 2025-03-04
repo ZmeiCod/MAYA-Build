@@ -296,7 +296,6 @@ export default function Basket() {
             <div className="basket__bottom">
               <div style={{ display: "flex" }}>
                 <div
-                  // style={{ display: "flex" }}
                   className="basket__bottom--input"
                 >
                   <div>

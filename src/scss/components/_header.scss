@@ -7,18 +7,40 @@
   overflow: hidden;
   position: relative;
 
+  &__phone {
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 15px;
+    a {
+      color: $orange;
+      font-family: "CygreSemiBold";
+    }
+
+    @media (min-width: 1060px) {
+      left: 50%;
+      position: absolute;
+    }
+    @media (min-width: 1220px) {
+      left: 55%;
+      position: absolute;
+    }
+    @media (min-width: 1450px) {
+      left: 60%;
+    }
+  }
+
   &__honeycombs {
     position: absolute;
     top: -0%;
-    left: 50%;
+    left: 32%;
     transform: translate(-50%, -50%);
     max-width: 300px;
 
-    img{
+    img {
       object-fit: cover;
     }
 
-    @media(max-width: 1060px) {
+    @media (max-width: 1060px) {
       display: none;
     }
   }

@@ -9,7 +9,7 @@
   text-align: center;
   cursor: pointer;
   transition: background-color $duration ease-in-out,
-    border-color $duration ease-in-out;
+  border-color $duration ease-in-out;
   border: 1px solid transparent;
   @include noselect();
 
@@ -137,7 +137,7 @@
     padding: 12px 25px;
     width: fit-content;
 
-    svg {
+    img {
       margin-right: 8px;
       margin-bottom: 1px;
     }

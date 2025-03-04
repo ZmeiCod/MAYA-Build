@@ -14,7 +14,6 @@ import arrowBasket from "../assets/ui/arrowBack.svg";
 import { AddressInput } from "../components/Basket/BasketAddressInput";
 
 export default function Basket() {
-  const REACT_APP_API_URL = process.env.REACT_APP_API_URL
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector((state) => state.cart);
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
@@ -102,7 +101,7 @@ export default function Basket() {
         paymentMethod,
         description: description ? description : undefined,
       });
-      fetch(`${REACT_APP_API_URL}/api/frontpad`, {
+      fetch("http://localhost:5000/api/frontpad", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

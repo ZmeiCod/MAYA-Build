@@ -44,7 +44,7 @@ export const BasketItem = ({
       </div>
       <div className="cart__item-info">
         <h3>
-          {title}
+          {title} {article}
         </h3>
         <p>{size} см.</p>
       </div>

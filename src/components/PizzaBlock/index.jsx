@@ -43,7 +43,7 @@ function PizzaBlock({
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
         <img className="pizza-block__image" src={image} alt="Pizza" />
-        {/* <p>{size === 40 ? article40 : article}</p> */}
+        <p>{size === 40 ? article40 : article}</p>
         <div className="item-block__header">
           <h1 className="item-block__title">{title}</h1>
           <h3 className="item-block__weight">{size === 40 ? weight40 : weight} г.</h3>

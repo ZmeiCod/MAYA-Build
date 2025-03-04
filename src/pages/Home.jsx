@@ -23,13 +23,9 @@ export default function Home() {
 
   const getProducts = async () => {
     const category = categoryId > 0 ? `categoryId=${categoryId}` : "";
-    // const search = searchValue ? `&search=${searchValue}` : "";
 
     try {
-      // const response = await axios.get(
-      //   `${REACT_APP_API_URL + "api/"}product?${category}`
-      // );
-      const response = await axios.get(`${REACT_APP_API_URL}/api/product`);
+      const response = await axios.get(`${REACT_APP_API_URL}/api/product?${category}`);
       const products = response.data.rows;
       setItems(products);
     } catch (error) {
@@ -42,7 +38,6 @@ export default function Home() {
   React.useEffect(() => {
     const getCategories = async () => {
       try {
-        // const response = await axios.get(REACT_APP_API_URL + "api/category");
         const response = await axios.get(`${REACT_APP_API_URL}/api/category`);
         setCategories(response.data);
       } catch (error) {

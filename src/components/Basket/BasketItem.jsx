@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { addItem, minusItem, removeItem } from "../../redux/cart/slice";
 
 import minus from "../../assets/ui/minus.svg";
@@ -14,26 +14,26 @@ export const BasketItem = ({
   count,
   size,
   article,
+  categoryId,
+  description,
+  isPizza
 }) => {
   const dispatch = useDispatch();
-
   const onClickPlus = () => {
     dispatch(
       addItem({
         id,
-        size, // Убедитесь, что размер передается здесь
-        price, // не забудьте цену, если она нужна
-        // добавьте другие необходимые поля
+        size,
+        price,
       })
     );
   };
-
   const onClickMinus = () => {
     dispatch(minusItem({ id, size })); 
   };
   const onClickRemove = () => {
     if (window.confirm("Вы действительно хотите удалить товар из корзины?")) {
-      dispatch(removeItem({ id, size })); // Здесь мы передаем и id, и size
+      dispatch(removeItem({ id, size }));
     }
   };
 
@@ -44,9 +44,9 @@ export const BasketItem = ({
       </div>
       <div className="cart__item-info">
         <h3>
-          {title}
+          {title} {isPizza && (size + ' см.')}
         </h3>
-        <p>{size} см.</p>
+        <p style={{textOverflow: "ellipsis", width: '250px', overflow: 'hidden', whiteSpace: 'nowrap'}}>{description}</p>
       </div>
       <div className="cart__item-count">
         <div

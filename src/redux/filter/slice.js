@@ -24,7 +24,7 @@ export const filterSlice = createSlice({
     },
     setFilters(state, action) {
       state.categoryId = Number(action.payload.categoryId);
-      state.sorting.name = action.payload.sorting  // Используем значение по умолчанию
+      state.sorting.name = action.payload.sorting
       }
     },
   },

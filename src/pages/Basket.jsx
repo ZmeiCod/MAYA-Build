@@ -61,7 +61,6 @@ export default function Basket() {
   const productModifiers = {};
 
   const params = {
-    // secret: frontpad,
     street: address,
     name: name,
     phone: phone,
@@ -69,7 +68,6 @@ export default function Basket() {
     pay: payId,
     mail: email ? email : "",
   };
-  // console.log(params);
 
   const formData = new URLSearchParams();
 
@@ -86,9 +84,6 @@ export default function Basket() {
     }
   });
 
-  // console.log("Products:", products);
-  // console.log("Quantities:", productQuantities);
-  // console.log("FormData:", formData.toString());
   const onClickMakeOrder = () => {
     try {
       schema.parse({
@@ -117,11 +112,10 @@ export default function Basket() {
           return response.json();
         })
         .then((result) => {
-          alert("status ok");
-          // console.log(result);
+          alert("Ваш заказ был отправлен. Ожидайте!");
         })
         .catch((error) => {
-          alert("status non ok");
+          alert("Произошла ошибка при отправке заказа");
           console.error("Ошибка:", error);
         });
     } catch (e) {

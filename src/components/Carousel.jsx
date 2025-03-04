@@ -42,7 +42,7 @@ export default function Carousel() {
         <img
           key={slide.id}
           className={`slider-list ${index === currentSlide ? "active" : ""}`}
-          src={REACT_APP_API_URL + slide.image}
+          src={REACT_APP_API_URL + "/" + slide.image}
           alt={slide.name}
           style={{
             display: index === currentSlide ? "block" : "none",

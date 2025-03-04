@@ -99,7 +99,7 @@ export default function Home() {
                 id={item.id}
                 article={item.article}
                 article40={item.article40}
-                image={REACT_APP_API_URL + item.image}
+                image={REACT_APP_API_URL + "/" + item.image}
                 title={item.name}
                 price={item.price}
                 price40={item.price40}

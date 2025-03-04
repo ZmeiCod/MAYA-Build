@@ -8,7 +8,7 @@ export default function Carousel() {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get(`${REACT_APP_API_URL}api/carousel`);
+      const response = await axios.get(`${REACT_APP_API_URL}/api/carousel`);
       const products = response.data;
       setSliders(products);
     } catch (error) {

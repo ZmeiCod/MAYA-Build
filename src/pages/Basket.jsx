@@ -166,7 +166,7 @@ export default function Basket() {
               <div className="basket__user-data__row info">
                 <div>
                   <InputField
-                    label="Имя"
+                    label="Имя *"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Введите имя"
@@ -183,7 +183,7 @@ export default function Basket() {
                     </div>
                   )}
                 </div>
-                <div>
+                {/* <div>
                   <InputField
                     label="E-mail"
                     value={email}
@@ -201,10 +201,10 @@ export default function Basket() {
                       {errors.email}
                     </div>
                   )}
-                </div>
+                </div> */}
                 <div>
                   <InputField
-                    label="Телефон"
+                    label="Телефон *"
                     value={phone}
                     onChange={(e) => phoneNumberChange(e, setPhone)}
                     placeholder="+7 (___) ___-__-__"
@@ -227,7 +227,7 @@ export default function Basket() {
                 <div>
                   <AddressInput
                     placeholder="Введите адрес доставки"
-                    label="Адрес доставки"
+                    label="Адрес доставки *"
                     value={address}
                     onChange={(value) => setAddress(value)}
                   />
@@ -248,7 +248,7 @@ export default function Basket() {
               <div className="basket__user-data__row">
                 <div>
                   <h3 className="basket__user-data__title">
-                    Комментарий к заказу
+                    Комментарий к заказу *
                   </h3>
                   <textarea
                     className="basket__user-data__input"
@@ -272,7 +272,7 @@ export default function Basket() {
                     htmlFor="approval"
                     className="check-box"
                   >
-                    Я даю согласие на обработку моих персональных данных
+                    Я даю согласие на обработку моих персональных данных *
                   </label>
                   {errors.isAgreed && (
                     <div
@@ -368,7 +368,7 @@ export default function Basket() {
                   <span>Вернуться назад</span>
                 </Link>
                 <div onClick={onClickMakeOrder} className="button pay-btn">
-                  <span>Оплатить сейчас</span>
+                  <span>Заказать</span>
                 </div>
               </div>
             </div>

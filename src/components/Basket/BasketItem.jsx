@@ -47,7 +47,7 @@ export const BasketItem = ({
         <h3>
           {title} {isPizza && (size + ' см.')}
         </h3>
-        <p style={{textOverflow: "ellipsis", width: '350px', overflow: 'hidden', whiteSpace: 'nowrap'}}>{description}</p>
+        {/* <p style={{textOverflow: "ellipsis", width: '350px', overflow: 'hidden', whiteSpace: 'nowrap'}}>{description}</p> */}
       </div>
       </div>
       <div className="cart__item__block">

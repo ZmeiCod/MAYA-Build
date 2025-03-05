@@ -19,4 +19,5 @@ const Skeleton = (props) => (
     <rect x="140" y="390" rx="20" ry="24" width="140" height="35" />
   </ContentLoader>
 );
+
 export default Skeleton;

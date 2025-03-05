@@ -39,6 +39,7 @@ export const BasketItem = ({
 
   return (
     <div className="cart__item">
+      <div className="cart__item__block">
       <div className="cart__item-img">
         <img className="basket__image" src={image} alt="Product" />
       </div>
@@ -48,6 +49,8 @@ export const BasketItem = ({
         </h3>
         <p style={{textOverflow: "ellipsis", width: '250px', overflow: 'hidden', whiteSpace: 'nowrap'}}>{description}</p>
       </div>
+      </div>
+      <div className="cart__item__block">
       <div className="cart__item-count">
         <div
           onClick={onClickMinus}
@@ -73,6 +76,7 @@ export const BasketItem = ({
         >
           <img src={remove} alt="" />
         </div>
+      </div>
       </div>
     </div>
   );

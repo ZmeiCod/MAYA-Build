@@ -321,11 +321,18 @@ body {
   padding-bottom: 1px;
   border-radius: 50px;
 
+
+
   &__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid $orange;
+
+    @media(max-width: 700px) {
+      flex-direction: column;
+    }
+
   }
 
   .content__title {
@@ -351,6 +358,10 @@ body {
     align-items: center;
     cursor: pointer;
     @include noselect();
+
+    @media(max-width: 700px) {
+      margin-bottom: 20px;
+    }
 
     span {
       display: inline-block;
@@ -394,6 +405,27 @@ body {
     padding-top: 30px;
     padding-bottom: 30px;
 
+    @media(max-width: 955px){
+      flex-direction: column;
+    }
+
+    &__block{
+      display: flex;
+      width: 50%;
+      @media(max-width: 955px){
+        justify-content: center;
+        width: 100%;
+      }
+    }
+
+    &__block:last-child {
+      justify-content: flex-end;
+      height: 80px;
+      @media(max-width: 955px){
+        justify-content: center
+      }
+    }
+
     &-img {
       display: flex;
       align-items: center;
@@ -430,6 +462,10 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 13%;
+
+      b{
+        margin: 0px 10px;
+      }
 
       &-minus {
         img {
@@ -469,7 +505,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 33%;
+      margin: 0px 50px;
 
       b {
         font-weight: bold;
@@ -519,7 +555,7 @@ body {
       justify-content: space-between;
       flex-direction: column;
 
-      @media(max-width: 700px) {
+      @media(max-width: 955px) {
         margin-top: 20px;
       }
 

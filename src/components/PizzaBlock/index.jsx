@@ -46,7 +46,9 @@ function PizzaBlock({
         <img className="pizza-block__image" src={image} alt="Pizza" />
         <div className="item-block__header">
           <h1 className="item-block__title">{title}</h1>
-          <h3 className="item-block__weight">{size === 40 ? weight40 : weight} г.</h3>
+          <h3 className="item-block__weight">
+            {size === 40 ? weight40 : weight} г.
+          </h3>
         </div>
         {isPizza && (
           <div className="pizza-block__selector">
@@ -70,7 +72,9 @@ function PizzaBlock({
           <h3 className="item-block__description">{description}</h3>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">{size === 40 ? price40 : price} ₽</div>
+          <div className="pizza-block__price">
+            {size === 40 ? price40 : price} ₽
+          </div>
           <button
             onClick={inClickAdd}
             className="button button--outline button--add item-block__button"
@@ -87,8 +91,14 @@ function PizzaBlock({
                 fill="white"
               />
             </svg>
-            <span>Добавить</span>
-            {addedCount > 0 && <i>{addedCount}</i>}
+            {addedCount > 0 ? (
+              <>
+                <span>Добавить</span>
+                <i>{addedCount}</i>
+              </>
+            ) : (
+              <span>Заказать</span>
+            )}
           </button>
         </div>
       </div>

@@ -163,7 +163,7 @@ export default function Basket() {
               <h1 className="content__title">2. Персональная информация</h1>
             </div>
             <div className="basket__user-data">
-              <div className="basket__user-data__row">
+              <div className="basket__user-data__row info">
                 <div>
                   <InputField
                     label="Имя"
@@ -294,7 +294,7 @@ export default function Basket() {
         <div className="content__basket">
           <div className="container">
             <div className="basket__bottom">
-              <div style={{ display: "flex" }}>
+              <div className="basket__bottom__paymant" style={{ display: "flex" }}>
                 <div
                   className="basket__bottom--input"
                 >

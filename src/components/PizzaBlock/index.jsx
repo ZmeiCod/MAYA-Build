@@ -70,7 +70,7 @@ function PizzaBlock({
           <h3 className="item-block__description">{description}</h3>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {size === 40 ? price40 : price} ₽</div>
+          <div className="pizza-block__price">{size === 40 ? price40 : price} ₽</div>
           <button
             onClick={inClickAdd}
             className="button button--outline button--add item-block__button"

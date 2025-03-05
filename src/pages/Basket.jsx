@@ -11,7 +11,7 @@ import { phoneNumberChange } from "../utils/phoneCheck";
 
 import basketClear from "../assets/ui/basketClear.svg";
 import arrowBasket from "../assets/ui/arrowBack.svg";
-import { AddressInput } from "../components/Basket/BasketAddressInput";
+// import { AddressInput } from "../components/Basket/BasketAddressInput";
 
 export default function Basket() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL
@@ -43,11 +43,11 @@ export default function Basket() {
     isAgreed: z.boolean().refine((value) => value === true, {
       message: "Необходимо согласие",
     }),
-    paymentMethod: z
-      .enum(["1", "2"])
-      .refine((value) => value === "1" || value === "2", {
-        message: "Выберите метод оплаты",
-      }),
+    // paymentMethod: z
+    //   .enum(["1", "2"])
+    //   .refine((value) => value === "1" || value === "2", {
+    //     message: "Выберите метод оплаты",
+    //   }),
   });
 
   const handlePaymentChange = (event) => {
@@ -88,13 +88,13 @@ export default function Basket() {
     try {
       schema.parse({
         name,
-        email: email ? email : undefined,
+        // email: email ? email : undefined,
         phone,
         address: {
           value: address,
         },
         isAgreed,
-        paymentMethod,
+        // paymentMethod,
         description: description ? description : undefined,
       });
       fetch(`${REACT_APP_API_URL}/api/frontpad`, {
@@ -225,13 +225,18 @@ export default function Basket() {
               </div>
               <div className="basket__user-data__row">
                 <div>
-                  <AddressInput
+                  {/* <AddressInput
                     placeholder="Введите адрес доставки"
                     label="Адрес доставки"
                     value={address}
                     onChange={(value) => setAddress(value)}
+                  /> */}
+                  <InputField
+                    placeholder="Введите адрес доставки"
+                    label="Адрес доставки"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                   />
-
                   {errors.address && (
                     <div
                       style={{

@@ -463,7 +463,6 @@ body {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 13%;
 
       b{
         margin: 0px 10px;
@@ -520,7 +519,6 @@ body {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      width: 4%;
 
       .button {
         border-color: darken($color: $orange, $amount: 10);

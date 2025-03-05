@@ -44,7 +44,7 @@ function PizzaBlock({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={image} alt="Pizza" />
+        <img className="pizza-block__image" src={image} alt="" loading="lazy" />
         <div className="item-block__header">
           <h1 className="item-block__title">{title}</h1>
           <h3 className="item-block__weight">

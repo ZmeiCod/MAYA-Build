@@ -43,7 +43,7 @@ export default function Carousel() {
           key={slide.id}
           className={`slider-list ${index === currentSlide ? "active" : ""}`}
           src={REACT_APP_API_URL + "/api/static/" + slide.image}
-          alt={slide.name}
+          alt=""
           style={{
             display: index === currentSlide ? "block" : "none",
             objectFit: "cover",

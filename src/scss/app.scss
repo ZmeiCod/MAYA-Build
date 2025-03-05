@@ -404,6 +404,7 @@ body {
     border-bottom: 1px solid $orange;
     padding-top: 30px;
     padding-bottom: 30px;
+    overflow: hidden;
 
     @media(max-width: 955px){
       flex-direction: column;
@@ -443,6 +444,7 @@ body {
       flex-direction: column;
       justify-content: center;
       width: 40%;
+      margin-left: 80px;
 
       h3 {
         font-weight: bold;

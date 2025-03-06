@@ -30,19 +30,19 @@ export default function Basket() {
   const [errors, setErrors] = React.useState({});
 
   const schema = z.object({
-    name: z.string().min(1, "Имя обязательно"),
-    email: z.string().email("Неверный формат электронной почты").optional(),
-    phone: z
-      .string()
-      .regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, "Неверный формат телефона"),
-    address: z
-      .object({
-        value: z.string().min(1, "Адрес обязателен"),
-      })
-      .transform((address) => address.value),
-    isAgreed: z.boolean().refine((value) => value === true, {
-      message: "Необходимо согласие",
-    }),
+    // name: z.string().min(1, "Имя обязательно"),
+    // email: z.string().email("Неверный формат электронной почты").optional(),
+    // phone: z
+    //   .string()
+    //   .regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, "Неверный формат телефона"),
+    // address: z
+    //   .object({
+    //     value: z.string().min(1, "Адрес обязателен"),
+    //   })
+    //   .transform((address) => address.value),
+    // isAgreed: z.boolean().refine((value) => value === true, {
+    //   message: "Необходимо согласие",
+    // }),
     // paymentMethod: z
     //   .enum(["1", "2"])
     //   .refine((value) => value === "1" || value === "2", {
@@ -87,13 +87,13 @@ export default function Basket() {
   const onClickMakeOrder = () => {
     try {
       schema.parse({
-        name,
+        // name,
         // email: email ? email : undefined,
-        phone,
-        address: {
-          value: address,
-        },
-        isAgreed,
+        // phone,
+        // address: {
+        //   value: address,
+        // },
+        // isAgreed,
         // paymentMethod,
         description: description ? description : undefined,
       });

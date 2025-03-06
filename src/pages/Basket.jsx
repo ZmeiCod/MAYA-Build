@@ -15,6 +15,7 @@ import arrowBasket from "../assets/ui/arrowBack.svg";
 
 export default function Basket() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+  const REACT_APP_API_FRONTPAD = process.env.REACT_APP_API_FRONTPAD;
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector((state) => state.cart);
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
@@ -62,6 +63,7 @@ export default function Basket() {
   const productModifiers = {};
 
   const params = {
+    secret: REACT_APP_API_FRONTPAD,
     street: address,
     name: name,
     phone: phone,
@@ -87,7 +89,7 @@ export default function Basket() {
 
   const onClickMakeOrder = () => {
     try {
-      fetch(`${REACT_APP_API_URL}/api/frontpad`, {
+      fetch(`https://app.frontpad.ru/api/index.php?new_order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

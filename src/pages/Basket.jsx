@@ -33,13 +33,13 @@ export default function Basket() {
   const schema = z.object({
     // name: z.string().min(1, "Имя обязательно"),
     // email: z.string().email("Неверный формат электронной почты").optional(),
-    // phone: z
-    //   .string()
-    //   .regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, "Неверный формат телефона"),
-    // address: z
-    //   .object({
-    //     value: z.string().min(1, "Адрес обязателен"),
-    //   })
+    phone: z
+      .string()
+      .regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, "Неверный формат телефона"),
+    address: z
+      .object({
+        value: z.string().min(1, "Адрес обязателен"),
+      })
     //   .transform((address) => address.value),
     // isAgreed: z.boolean().refine((value) => value === true, {
     //   message: "Необходимо согласие",
@@ -102,10 +102,10 @@ export default function Basket() {
         })
         .then((result) => {
           setIsOrderSent(true);
-          setIsVisible(true); // Уведомление становится видимым
+          setIsVisible(true);
           setTimeout(() => {
-            setIsVisible(false); // Уведомление скрывается
-            setIsOrderSent(false); // Убираем 'заказ успешно отправлен' состояние
+            setIsVisible(false);
+            setIsOrderSent(false);
           }, 3000);
         })
         .catch((error) => {

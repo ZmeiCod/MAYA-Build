@@ -10,12 +10,19 @@
   &__phone {
     font-size: 30px;
     text-align: center;
-    padding-bottom: 15px;
-    a {
+    a, p {
       color: $orange;
       font-family: "CygreSemiBold";
     }
 
+    p {
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    @media(max-width: 1060px) {
+      padding-bottom: 15px;
+    }
     @media (min-width: 1059px) {
       left: 50%;
       position: absolute;

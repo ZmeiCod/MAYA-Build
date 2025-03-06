@@ -14,11 +14,13 @@ import arrowBasket from "../assets/ui/arrowBack.svg";
 // import { AddressInput } from "../components/Basket/BasketAddressInput";
 
 export default function Basket() {
-  const REACT_APP_API_URL = process.env.REACT_APP_API_URL
+  const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+  const REACT_APP_API_FRONTPAD = process.env.REACT_APP_API_FRONTPAD;
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector((state) => state.cart);
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
-
+  const [isVisible, setIsVisible] = React.useState(false);
+  const [isOrderSent, setIsOrderSent] = React.useState(false);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
@@ -61,6 +63,7 @@ export default function Basket() {
   const productModifiers = {};
 
   const params = {
+    secret: REACT_APP_API_FRONTPAD,
     street: address,
     name: name,
     phone: phone,
@@ -86,18 +89,7 @@ export default function Basket() {
 
   const onClickMakeOrder = () => {
     try {
-      schema.parse({
-        // name,
-        // email: email ? email : undefined,
-        // phone,
-        // address: {
-        //   value: address,
-        // },
-        // isAgreed,
-        // paymentMethod,
-        description: description ? description : undefined,
-      });
-      fetch(`${REACT_APP_API_URL}/api/frontpad`, {
+      fetch(`https://app.frontpad.ru/api/index.php?new_order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -111,7 +103,12 @@ export default function Basket() {
           return response.json();
         })
         .then((result) => {
-          alert("Ваш заказ был отправлен. Ожидайте!");
+          setIsOrderSent(true);
+          setIsVisible(true);
+          setTimeout(() => {
+            setIsVisible(false);
+            setIsOrderSent(false);
+          }, 3000);
         })
         .catch((error) => {
           alert("Произошла ошибка при отправке заказа");
@@ -299,10 +296,11 @@ export default function Basket() {
         <div className="content__basket">
           <div className="container">
             <div className="basket__bottom">
-              <div className="basket__bottom__paymant" style={{ display: "flex" }}>
-                <div
-                  className="basket__bottom--input"
-                >
+              <div
+                className="basket__bottom__paymant"
+                style={{ display: "flex" }}
+              >
+                <div className="basket__bottom--input">
                   <div>
                     <input
                       type="radio"
@@ -368,7 +366,11 @@ export default function Basket() {
                   to="/"
                   className="button button--outline button--add go-back-btn"
                 >
-                  <img src={arrowBasket} style={{ paddingRight: "10px" }} alt=''/>
+                  <img
+                    src={arrowBasket}
+                    style={{ paddingRight: "10px" }}
+                    alt=""
+                  />
 
                   <span>Вернуться назад</span>
                 </Link>
@@ -379,6 +381,9 @@ export default function Basket() {
             </div>
           </div>
         </div>
+        {isOrderSent && isVisible && (
+          <div className="notification">Заказ успешно отправлен!</div>
+        )}
       </div>
     </div>
   );

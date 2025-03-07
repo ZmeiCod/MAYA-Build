@@ -40,14 +40,15 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Центрируем элемент */
-  background-color: #5cb85c; /* зеленый цвет для успеха */
-  color: white;
-  padding: 15px;
+  transform: translate(-50%, -50%);
+  background-color: $black;
+  color: $orange;
+  border-radius: 5px solid $orange;
+  padding: 40px;
   border-radius: 5px;
   transition: opacity 0.3s ease;
-  z-index: 1000; /* Чтобы уведомление было поверх других элементов */
-  opacity: 1; /* Задаем начальную прозрачность для плавного появления */
+  z-index: 1000;
+  opacity: 1;
 }
 
 .wrapper {

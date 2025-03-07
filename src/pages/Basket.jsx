@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { z } from "zod";
+import { useNavigate } from 'react-router-dom';
 
 import { BasketEmpty } from "../components/Basket/BasketEmpty";
 import { BasketItem } from "../components/Basket/BasketItem";
@@ -16,6 +17,7 @@ import arrowBasket from "../assets/ui/arrowBack.svg";
 export default function Basket() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { totalPrice, items } = useSelector((state) => state.cart);
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
   const [isVisible, setIsVisible] = React.useState(false);
@@ -31,7 +33,7 @@ export default function Basket() {
   const [errors, setErrors] = React.useState({});
 
   const schema = z.object({
-    // name: z.string().min(1, "Имя обязательно"),
+    name: z.string().min(1, "Имя обязательно"),
     // email: z.string().email("Неверный формат электронной почты").optional(),
     phone: z
       .string()
@@ -67,7 +69,7 @@ export default function Basket() {
     phone: phone,
     descr: description ? description : "",
     pay: payId,
-    mail: email ? email : "",
+    // mail: email ? email : "",
   };
 
   const formData = new URLSearchParams();
@@ -87,6 +89,17 @@ export default function Basket() {
 
   const onClickMakeOrder = () => {
     try {
+      schema.parse({
+        name,
+        // email: email ? email : undefined,
+        phone,
+        address: {
+          value: address,
+        },
+        // isAgreed,
+        // paymentMethod,
+        description: description ? description : undefined,
+      });
       fetch(`${REACT_APP_API_URL}/api/frontpad`, {
         method: "POST",
         headers: {
@@ -101,12 +114,16 @@ export default function Basket() {
           return response.json();
         })
         .then((result) => {
+          
           setIsOrderSent(true);
           setIsVisible(true);
           setTimeout(() => {
             setIsVisible(false);
             setIsOrderSent(false);
-          }, 3000);
+            setTimeout(() => {
+              navigate('/');
+            }, 1);
+          }, 5000); 
         })
         .catch((error) => {
           alert("Произошла ошибка при отправке заказа");

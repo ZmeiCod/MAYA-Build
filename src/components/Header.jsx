@@ -24,7 +24,7 @@ function Header() {
         {/* <Search /> */}
         <div className="header__phone">
           <a href="tel:+79784441414"> + 7 (978) 444 14 14 </a>
-          <p>Пн-чт 10.00-23.00 <br /> Пт-вс 10.00-23.00</p>
+          <p>Вс-чт. 10.00-23.00 <br /> Пт-сб 10.00-00.00</p>
         </div>
         <div className="header__cart">
           <Link to="/basket" className="button button--cart">

@@ -7,11 +7,14 @@ import Carousel from "../components/Carousel";
 import { setCategoryId } from "../redux/filter/slice";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import Footer from "../components/Footer";
+import Cookies from "../components/Cookies";
 
 export default function Home() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
+  const [showCookies, setShowCookies] = React.useState(false);
   const { searchValue } = React.useContext(Context);
   const [items, setItems] = React.useState([]);
   const [scrollPosition, setScrollPosition] = React.useState(0);
@@ -20,6 +23,13 @@ export default function Home() {
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
+
+  React.useEffect(() => {
+    const cookiesConsent = document.cookie.split('; ').find(row => row.startsWith('cookiesConsent='));
+    if (!cookiesConsent) {
+      setShowCookies(true);
+    }
+  }, []);
 
   const getProducts = async () => {
     const category = categoryId > 0 ? `categoryId=${categoryId}` : "";
@@ -115,9 +125,11 @@ export default function Home() {
   return (
     <>
       <Carousel/>
+      {showCookies && <Cookies onClose={() => setShowCookies(false)} />}
       <div className="wrapper">
         <div className="content">
           <div className="container">
+          {/* <Carousel/> */}
             <div className="content__top">
               <Categories
                 value={categoryId}
@@ -144,6 +156,7 @@ export default function Home() {
           <img className="arrow__image" src={arrow} alt="Top" />
         </button>
       )}
+      <Footer />
     </>
   );
 }

@@ -235,6 +235,12 @@ body {
   padding-bottom: 1px;
   border-radius: 50px;
 
+  &__link{
+    padding-left: 5px;
+    text-decoration: underline;
+    color: $orange;
+  }
+
   &__bottom {
     padding: 30px 0;
  

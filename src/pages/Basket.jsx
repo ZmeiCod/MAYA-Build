@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { z } from "zod";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
+import pdf from '../assets/document/Пример.pdf'
 
 import { BasketEmpty } from "../components/Basket/BasketEmpty";
 import { BasketItem } from "../components/Basket/BasketItem";
@@ -12,7 +14,6 @@ import { phoneNumberChange } from "../utils/phoneCheck";
 
 import basketClear from "../assets/ui/basketClear.svg";
 import arrowBasket from "../assets/ui/arrowBack.svg";
-// import { AddressInput } from "../components/Basket/BasketAddressInput";
 
 export default function Basket() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
@@ -23,7 +24,6 @@ export default function Basket() {
   const [isVisible, setIsVisible] = React.useState(false);
   const [isOrderSent, setIsOrderSent] = React.useState(false);
   const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -34,23 +34,15 @@ export default function Basket() {
 
   const schema = z.object({
     name: z.string().min(1, "Имя обязательно"),
-    // email: z.string().email("Неверный формат электронной почты").optional(),
     phone: z
       .string()
       .regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, "Неверный формат телефона"),
-    address: z
-      .object({
-        value: z.string().min(1, "Адрес обязателен"),
-      })
-    //   .transform((address) => address.value),
+    address: z.object({
+      value: z.string().min(1, "Адрес обязателен"),
+    }),
     // isAgreed: z.boolean().refine((value) => value === true, {
     //   message: "Необходимо согласие",
     // }),
-    // paymentMethod: z
-    //   .enum(["1", "2"])
-    //   .refine((value) => value === "1" || value === "2", {
-    //     message: "Выберите метод оплаты",
-    //   }),
   });
 
   const handlePaymentChange = (event) => {
@@ -69,7 +61,6 @@ export default function Basket() {
     phone: phone,
     descr: description ? description : "",
     pay: payId,
-    // mail: email ? email : "",
   };
 
   const formData = new URLSearchParams();
@@ -91,13 +82,11 @@ export default function Basket() {
     try {
       schema.parse({
         name,
-        // email: email ? email : undefined,
         phone,
         address: {
           value: address,
         },
         // isAgreed,
-        // paymentMethod,
         description: description ? description : undefined,
       });
       fetch(`${REACT_APP_API_URL}/api/frontpad`, {
@@ -114,16 +103,15 @@ export default function Basket() {
           return response.json();
         })
         .then((result) => {
-          
           setIsOrderSent(true);
           setIsVisible(true);
           setTimeout(() => {
             setIsVisible(false);
             setIsOrderSent(false);
             setTimeout(() => {
-              navigate('/');
+              navigate("/");
             }, 1);
-          }, 5000); 
+          }, 5000);
         })
         .catch((error) => {
           alert("Произошла ошибка при отправке заказа");
@@ -195,25 +183,6 @@ export default function Basket() {
                     </div>
                   )}
                 </div>
-                {/* <div>
-                  <InputField
-                    label="E-mail"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Введите e-mail"
-                  />
-                  {errors.email && email && (
-                    <div
-                      style={{
-                        color: "red",
-                        fontSize: "10px",
-                        paddingLeft: "15px",
-                      }}
-                    >
-                      {errors.email}
-                    </div>
-                  )}
-                </div> */}
                 <div>
                   <InputField
                     label="Телефон"
@@ -237,12 +206,6 @@ export default function Basket() {
               </div>
               <div className="basket__user-data__row">
                 <div>
-                  {/* <AddressInput
-                    placeholder="Введите адрес доставки"
-                    label="Адрес доставки"
-                    value={address}
-                    onChange={(value) => setAddress(value)}
-                  /> */}
                   <InputField
                     placeholder="Введите адрес доставки"
                     label="Адрес доставки"
@@ -289,7 +252,10 @@ export default function Basket() {
                     htmlFor="approval"
                     className="check-box"
                   >
-                    Я даю согласие на обработку моих персональных данных
+                    Я даю согласие на
+                    <a href={pdf} target="_blank" rel="noopener noreferrer" className="basket__link">
+                       обработку персональных данных
+                    </a>
                   </label>
                   {errors.isAgreed && (
                     <div

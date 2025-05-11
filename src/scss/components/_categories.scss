@@ -47,8 +47,8 @@
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 
-  img {
-    
+  &__text {
+    text-align: center;
   }
 
   span{
@@ -63,17 +63,13 @@
   }
 
   button {
-    background-color: $orange; // Цвет кнопки
     color: white;
+    background-color: $orange; // Цвет кнопки
     border: none;
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 4px;
     margin-top: 10px;
-    
-    &:hover {
-      background-color: $orange; // Цвет кнопки при наведении
-    }
   }
 }
 

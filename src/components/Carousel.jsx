@@ -5,15 +5,14 @@ export default function Carousel() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
   const [sliders, setSliders] = React.useState([]);
   const [currentSlide, setCurrentSlide] = React.useState(0);
-
+  
   const getProducts = async () => {
     try {
       const response = await axios.get(`${REACT_APP_API_URL}/api/carousel`);
       const products = response.data;
       setSliders(products);
     } catch (error) {
-      alert("Произошла ошибка при получении слайдов");
-      console.log(error);
+      console.error("Ошибка при загрузке слайдера");
       setSliders([]);
     }
   };
@@ -35,14 +34,18 @@ export default function Carousel() {
     return () => clearInterval(interval);
   }, []);
 
+  // Определяем состояние (мобильное или десктопное)
+  const isMobile = window.innerWidth <= 800;
+
   return (
     <div className="carousel">
       {sliders.map((slide, index) => (
-        
         <img
           key={slide.id}
           className={`slider-list ${index === currentSlide ? "active" : ""}`}
-          src={REACT_APP_API_URL + "/api/static/" + slide.image}
+          src={isMobile ? 
+            REACT_APP_API_URL + "/api/static/" + slide.smallImage : 
+            REACT_APP_API_URL + "/api/static/" + slide.image}
           alt=""
           style={{
             display: index === currentSlide ? "block" : "none",

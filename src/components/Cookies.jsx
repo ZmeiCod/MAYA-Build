@@ -7,9 +7,9 @@ export default function Cookies() {
 
   const handleClose = () => {
     const date = new Date();
-    date.setTime(date.getTime() + (3 * 24 * 60 * 60 * 1000));
+    date.setTime(date.getTime() + 3 * 24 * 60 * 60 * 1000);
     const expires = `expires=${date.toUTCString()}`;
-    
+
     document.cookie = `cookiesConsent=accepted; ${expires}; path=/`;
     setVisible(false);
   };
@@ -18,22 +18,16 @@ export default function Cookies() {
 
   return (
     <div className="cookies-banner">
+      {/* <img src={cookies} alt="cookies" /> */}
       <img src={cookies} alt="cookies" />
-      <div className="cookies-text">
-        <div>
-          <span> Мы используем cookies файлы, вот </span>
-          <a
-            href={pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-          условия обработки персональных данных
-          </a>
-        </div>
+      <div className="cookies-banner__text">
+        <span>Мы используем куки файлы для улучшения сайта </span>
+        {/* <span> Мы используем куки файлы, вот </span>
+        <a href={pdf} target="_blank" rel="noopener noreferrer">
+          условия их обработки
+        </a> */}
       </div>
-      <button onClick={handleClose}>
-        Принять
-      </button>
+      <button onClick={handleClose}>Принять</button>
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 
+import Header from "../components/Header";
+
 import pdf from '../assets/document/Пример.pdf'
 
 import { BasketEmpty } from "../components/Basket/BasketEmpty";
@@ -136,6 +138,8 @@ export default function Basket() {
   }
 
   return (
+    <div className="app">
+    <Header/>
     <div className="wrapper">
       <div className="content">
         <div className="content__basket">
@@ -252,10 +256,10 @@ export default function Basket() {
                     htmlFor="approval"
                     className="check-box"
                   >
-                    Я даю согласие на
-                    <a href={pdf} target="_blank" rel="noopener noreferrer" className="basket__link">
+                    Я даю согласие на обработку персональных данных
+                    {/* <a href={pdf} target="_blank" rel="noopener noreferrer" className="basket__link">
                        обработку персональных данных
-                    </a>
+                    </a> */}
                   </label>
                   {errors.isAgreed && (
                     <div
@@ -345,7 +349,7 @@ export default function Basket() {
               <div className="cart__bottom-buttons">
                 <Link
                   to="/"
-                  className="button button--outline button--add go-back-btn"
+                  className="button pay-btn"
                 >
                   <img
                     src={arrowBasket}
@@ -366,6 +370,7 @@ export default function Basket() {
           <div className="notification">Заказ успешно отправлен!</div>
         )}
       </div>
+    </div>
     </div>
   );
 }

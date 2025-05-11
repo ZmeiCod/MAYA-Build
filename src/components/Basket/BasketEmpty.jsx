@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import basketEmpty from "../../assets/img/basketEmpty.png";
+import Header from "../../components/Header";
 
 export const BasketEmpty = () => {
   return (
-    <div className="cart cart--empty">
+    <div>
+      <Header></Header>
+      <div className="cart cart--empty">
       <div className='cart text-block'>
         <h2>
           Корзина пустая <span>😕</span>
@@ -19,6 +22,7 @@ export const BasketEmpty = () => {
       <Link to="/" className="button button--black">
         <span>Вернуться назад</span>
       </Link>
+    </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <div className="footer">
       <div className="footer-content">
-        <div className="footer-left">
+        {/* <div className="footer-left">
           <ul>
             <li>
               <a
@@ -28,7 +28,7 @@ export default function Footer() {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className="footer-center">
           <img src={logo} alt="logo" className="footer-logo" />
           <h3>г. Симферополь</h3>

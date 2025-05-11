@@ -15,7 +15,7 @@ export default function NotFound() {
           </h3>
         </div>
         <div className={styles.button}>
-          <Link to="/" className="button button--black">
+          <Link to="/" className="button">
             <span>Вернуться назад</span>
           </Link>
         </div>

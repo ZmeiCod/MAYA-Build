@@ -9,6 +9,8 @@
 
   &:hover {
     transform: scale(1.03);
+
+
   }
 
   &-wrapper {
@@ -105,6 +107,10 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    &:hover {
+      -webkit-line-clamp: none;
+    }
+
     cursor: pointer;
     transition: max-height 0.2s ease;
   }

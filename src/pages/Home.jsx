@@ -1,14 +1,16 @@
 import React from "react";
+import axios from "axios";
 import { Context } from "../App";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import arrow from "../assets/ui/arrow.svg";
+import Cookies from "../components/Cookies";
+import Carousel from "../components/Carousel";
 import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
-import Carousel from "../components/Carousel";
 import { setCategoryId } from "../redux/filter/slice";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import Footer from "../components/Footer";
-import Cookies from "../components/Cookies";
+
 
 export default function Home() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
@@ -19,6 +21,9 @@ export default function Home() {
   const [items, setItems] = React.useState([]);
   const [scrollPosition, setScrollPosition] = React.useState(0);
   const [categories, setCategories] = React.useState([]);
+
+  const [loading, setLoading] = React.useState(true);
+  const [errorBackend, setErrorBackend] = React.useState(false)
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -35,23 +40,30 @@ export default function Home() {
     const category = categoryId > 0 ? `categoryId=${categoryId}` : "";
 
     try {
+      setLoading(true);
       const response = await axios.get(`${REACT_APP_API_URL}/api/product?${category}`);
       const products = response.data.rows;
       setItems(products);
     } catch (error) {
-      alert("Произошла ошибка при получении товаров");
-      console.log(error);
+      setErrorBackend(true);
+      console.error("Ошибка при загрузке блюд");
       setItems([]);
-    }
+    } finally {
+        setLoading(false); // Завершаем загрузку независимо от результата
+      }
   };
 
   React.useEffect(() => {
     const getCategories = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`${REACT_APP_API_URL}/api/category`);
         setCategories(response.data);
       } catch (error) {
-        console.error("Ошибка при получении категорий:", error);
+        setErrorBackend(true);
+        console.error("Ошибка при загрузке категорий");
+      } finally {
+        setLoading(false); // Завершаем загрузку независимо от результата
       }
     };
 
@@ -123,13 +135,13 @@ export default function Home() {
   });
 
   return (
-    <>
+    <div className="app">
+      <Header/>
       <Carousel/>
       {showCookies && <Cookies onClose={() => setShowCookies(false)} />}
       <div className="wrapper">
         <div className="content">
           <div className="container">
-          {/* <Carousel/> */}
             <div className="content__top">
               <Categories
                 value={categoryId}
@@ -137,16 +149,18 @@ export default function Home() {
                 categories={categories}
               />
             </div>
-            {hasProducts ? (
-              productItems
-            ) : (
+            {loading ? ( // Если загрузка
               <div className="content__error-info">
-                <h1>Блюда не найдены 😕</h1>
-                <h3>
-                  Попробуйте повторить попытку позже или сделайте корректный
-                  поиск.
-                </h3>
+                <h1>Загрузка...</h1>
+                <h3>Подождите немного.</h3>
               </div>
+            ) : errorBackend ? ( // Если есть ошибка
+              <div className="content__error-info">
+                <h1>Ошибка сервера</h1>
+                <h3>Попробуйте зайти на сайт позже</h3>
+              </div>
+            ) : ( // Если нет ошибок и загрузка завершена
+              hasProducts ? productItems : <div><h1>Нет продуктов для отображения.</h1></div>
             )}
           </div>
         </div>
@@ -157,6 +171,6 @@ export default function Home() {
         </button>
       )}
       <Footer />
-    </>
+    </div>
   );
 }

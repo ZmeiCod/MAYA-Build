@@ -10,6 +10,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
 import { setCategoryId } from "../redux/filter/slice";
 import { useSelector, useDispatch } from "react-redux";
+import Navigation from "../components/Navigation";
 
 
 export default function Home() {
@@ -139,6 +140,7 @@ export default function Home() {
       <Header/>
       <Carousel/>
       {showCookies && <Cookies onClose={() => setShowCookies(false)} />}
+      <Navigation></Navigation>
       <div className="wrapper">
         <div className="content">
           <div className="container">

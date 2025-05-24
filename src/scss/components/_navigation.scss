@@ -1,0 +1,48 @@
+.navigation {
+    position: relative;
+    width: 100%;
+    height: 70px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+    .icon,
+    .text {
+        color: #242424;
+    }
+
+    ul {
+        display: flex;
+        width: 350px;
+        padding: 0;
+
+        li {
+            position: relative;
+            list-style: none;
+            height: 70px;
+            width: 70px;
+            z-index: 1;
+
+            a {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+
+                .icon {
+                    position: relative;
+                    display: block;
+                    line-height: 75px;
+                    font-size: 1.5rem;
+                    text-align: center;
+                    transition: 0.5s;
+                }
+            }
+        }
+    }
+}

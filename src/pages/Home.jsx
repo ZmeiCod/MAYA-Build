@@ -140,7 +140,7 @@ export default function Home() {
       <Header/>
       <Carousel/>
       {showCookies && <Cookies onClose={() => setShowCookies(false)} />}
-      <Navigation></Navigation>
+      {/* <Navigation></Navigation> */}
       <div className="wrapper">
         <div className="content">
           <div className="container">

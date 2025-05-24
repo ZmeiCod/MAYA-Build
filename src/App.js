@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Basket from "./pages/Basket";
 import NotFound from "./pages/NotFound";
 import "./scss/app.scss";
+import Navigation from "./components/Navigation";
 
 export const Context = React.createContext()
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="basket" element={<Basket />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Navigation/>
     </Context.Provider>
   );
 }

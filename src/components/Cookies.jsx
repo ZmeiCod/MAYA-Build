@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import cookies from "../assets/ui/cookies.svg";
-import pdf from "../assets/document/Пример.pdf";
+// import pdf from "../assets/document/Пример.pdf";
 
 export default function Cookies() {
   const [visible, setVisible] = useState(true);
@@ -18,7 +18,6 @@ export default function Cookies() {
 
   return (
     <div className="cookies-banner">
-      {/* <img src={cookies} alt="cookies" /> */}
       <img src={cookies} alt="cookies" />
       <div className="cookies-banner__text">
         <span>Мы используем куки файлы для улучшения сайта </span>

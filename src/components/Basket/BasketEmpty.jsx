@@ -17,9 +17,9 @@ export const BasketEmpty = () => {
           </p>
         </div>
         <img src={basketEmpty} alt="Empty cart" />
-        <Link to="/" className="button button--black">
+        {/* <Link to="/" className="button button--black">
           <span>Вернуться назад</span>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

@@ -49,7 +49,7 @@ export default function Footer() {
         </div>
       </div>
       <div className='footer-bg'>
-            <img src={footer} alt="footer" />
+            <img src={footer} alt="" />
         </div>
     </div>
   );

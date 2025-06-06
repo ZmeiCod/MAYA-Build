@@ -24,12 +24,12 @@ function Header() {
     return (
       <div className="header">
         <div className="header__honeycombs">
-          <img src={honeycombs} alt="honeycombs" />
+          <img src={honeycombs} alt="" />
         </div>
         <div className="container">
           <Link to="/">
             <div className="header__logo">
-              <img src={logo} alt="maya logo" />
+              <img src={logo} alt="" />
             </div>
           </Link>
           {/* <Search /> */}

@@ -1,4 +1,22 @@
-@import '../variables';
+@import "../variables";
+
+.productCategory {
+  font-size: 32px;
+  margin-top: 40px;
+  margin-bottom: 50px;
+  color: $orange;
+  align-items: center;
+
+  @media (max-width: 700px) {
+    font-size: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 0px;
+  }
+}
 
 .pizza-block {
   width: 280px;
@@ -7,15 +25,14 @@
   transition: all 0.2s ease-in-out;
   border-radius: 50px;
 
-  &:hover {
-    transform: scale(1.03);
-
-
-  }
-
   &-wrapper {
     display: flex;
     justify-content: center;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.03);
+    }
   }
 
   &__image {
@@ -68,19 +85,42 @@
     letter-spacing: 0.015em;
     color: $orange;
   }
+
+  &__new {
+    display: flex;
+
+    // color: $orange;
+    // background-color: $creamy;
+
+    color: $black;
+    background-color: $orange;
+
+    justify-content: center;
+    width: 90px;
+    height: 30px;
+    border-radius: 25px;
+    z-index: 1;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    font-family: KanitCyrillic;
+
+    position: absolute;
+    left: 50%;
+    top: -10px;
+    transform: translateX(-50%);
+  }
 }
 
-.basket{
-  &__image{
+.basket {
+  &__image {
     width: 280px;
     height: 200px;
     border-radius: 10px;
   }
 }
 
-
-.item-block{
-
+.item-block {
   &__header {
     display: flex;
     justify-content: space-between;
@@ -102,37 +142,7 @@
 
   &__description {
     color: $gray;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    &:hover {
-      -webkit-line-clamp: none;
-    }
-
     cursor: pointer;
     transition: max-height 0.2s ease;
-  }
-  
-  &__description-hover {
-    display: none;
-    position: absolute;
-    background-color: $black;
-    color: $gray;
-    max-width: 280px;
-    padding: 10px;
-    border-radius: 8px;
-    z-index: 10;
-  }
-
-  &:hover {
-    &__description {
-      max-height: none;
-    }
-
-    &__description-hover {
-      display: block;
-    }
   }
 }

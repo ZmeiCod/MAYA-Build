@@ -1,7 +1,7 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addItem } from "../../redux/cart/slice";
 import plus from "../../assets/ui/plus.svg";
+import { addItem } from "../../redux/cart/slice";
+import { useSelector, useDispatch } from "react-redux";
 
 function PizzaBlock({
   id,
@@ -16,12 +16,14 @@ function PizzaBlock({
   weight40,
   categoryId,
   isPizza,
+  createdAt,
 }) {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) =>
     state.cart.items.find((obj) => obj.id === id)
   );
   const [size, setSize] = React.useState(30);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = React.useState(false);
 
   const addedCount = cartItem ? cartItem.count : 0;
 
@@ -41,9 +43,14 @@ function PizzaBlock({
     dispatch(addItem(item));
   };
 
+  const isNew = new Date().getTime() - new Date(createdAt).getTime() <= 30 * 24 * 60 * 60 * 1000;
+
   return (
     <div className="pizza-block-wrapper">
-      <div className="pizza-block">
+      {isNew && <div className="pizza-block__new">Новинка!</div>}
+      
+      <div className="pizza-block" onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)} >
+      
         <img className="pizza-block__image" src={image} alt="" loading="lazy" />
         <div className="item-block__header">
           <h1 className="item-block__title">{title}</h1>
@@ -70,7 +77,7 @@ function PizzaBlock({
           </div>
         )}
         <div>
-          <h3 className="item-block__description">{description}</h3>
+          <h3 className="item-block__description"> {isDescriptionExpanded ? description : `${description.slice(0, 40)}...`}</h3>
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">

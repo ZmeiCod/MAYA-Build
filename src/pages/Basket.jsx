@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 
-import pdf from '../assets/document/Пример.pdf'
+// import pdf from '../assets/document/Пример.pdf'
 
 import { BasketEmpty } from "../components/Basket/BasketEmpty";
 import { BasketItem } from "../components/Basket/BasketItem";
@@ -16,6 +16,7 @@ import { phoneNumberChange } from "../utils/phoneCheck";
 
 import basketClear from "../assets/ui/basketClear.svg";
 import arrowBasket from "../assets/ui/arrowBack.svg";
+import { Helmet } from "react-helmet";
 
 export default function Basket() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
@@ -139,238 +140,242 @@ export default function Basket() {
 
   return (
     <div className="app">
-    <Header/>
-    <div className="wrapper">
-      <div className="content">
-        <div className="content__basket">
-          <div className="container">
-            <div className="cart">
-              <div className="cart__top">
-                <h1 className="content__title">1. Корзина</h1>
-                <div onClick={onClickClear} className="cart__clear">
-                  <img src={basketClear} alt="-" />
-                  <span>Очистить корзину</span>
+      <Helmet>
+        <meta
+          name="description"
+          content="Лучшие блюда — лучшие цены! Роллы, пицца, бургеры от шефа, +7(978)-444-14-14"
+        />
+        <meta name="keywords" content="Симферополь, доставка, еда, вкусно" />
+      </Helmet>
+      <Header />
+      <div className="wrapper">
+        <div className="content">
+          <div className="content__basket">
+            <div className="container">
+              <div className="cart">
+                <div className="cart__top">
+                  <h1 className="content__title">1. Корзина</h1>
+                  <div onClick={onClickClear} className="cart__clear">
+                    <img src={basketClear} alt="-" />
+                    <span>Очистить корзину</span>
+                  </div>
                 </div>
-              </div>
-              <div className="content__items">
-                {items.map((item) => (
-                  <BasketItem key={item.id} {...item} />
-                ))}
+                <div className="content__items">
+                  {items.map((item) => (
+                    <BasketItem key={item.id} {...item} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="content__basket">
-          <div className="container">
-            <div className="cart__top">
-              <h1 className="content__title">2. Персональная информация</h1>
-            </div>
-            <div className="basket__user-data">
-              <div className="basket__user-data__row info">
-                <div>
-                  <InputField
-                    label="Имя"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Введите имя"
-                  />
-                  {errors.name && (
-                    <div
-                      style={{
-                        color: "red",
-                        fontSize: "10px",
-                        paddingLeft: "15px",
-                      }}
-                    >
-                      {errors.name}
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <InputField
-                    label="Телефон"
-                    value={phone}
-                    onChange={(e) => phoneNumberChange(e, setPhone)}
-                    placeholder="+7 (___) ___-__-__"
-                    mask="+7 (999) 999-99-99"
-                  />
-                  {errors.phone && (
-                    <div
-                      style={{
-                        color: "red",
-                        fontSize: "10px",
-                        paddingLeft: "15px",
-                      }}
-                    >
-                      {errors.phone}
-                    </div>
-                  )}
-                </div>
+          <div className="content__basket">
+            <div className="container">
+              <div className="cart__top">
+                <h1 className="content__title">2. Персональная информация</h1>
               </div>
-              <div className="basket__user-data__row">
-                <div>
-                  <InputField
-                    placeholder="Введите адрес доставки"
-                    label="Адрес доставки"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                  {errors.address && (
-                    <div
-                      style={{
-                        color: "red",
-                        fontSize: "10px",
-                        paddingLeft: "15px",
-                      }}
+              <div className="basket__user-data">
+                <div className="basket__user-data__row info">
+                  <div>
+                    <InputField
+                      label="Имя"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Введите имя"
+                    />
+                    {errors.name && (
+                      <div
+                        style={{
+                          color: "red",
+                          fontSize: "10px",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        {errors.name}
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <InputField
+                      label="Телефон"
+                      value={phone}
+                      onChange={(e) => phoneNumberChange(e, setPhone)}
+                      placeholder="+7 (___) ___-__-__"
+                      mask="+7 (999) 999-99-99"
+                    />
+                    {errors.phone && (
+                      <div
+                        style={{
+                          color: "red",
+                          fontSize: "10px",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        {errors.phone}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="basket__user-data__row">
+                  <div>
+                    <InputField
+                      placeholder="Введите адрес доставки"
+                      label="Адрес доставки"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                    {errors.address && (
+                      <div
+                        style={{
+                          color: "red",
+                          fontSize: "10px",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        {errors.address}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="basket__user-data__row">
+                  <div>
+                    <h3 className="basket__user-data__title">
+                      Комментарий к заказу
+                    </h3>
+                    <textarea
+                      className="basket__user-data__input"
+                      rows={5}
+                      maxLength="100"
+                      placeholder="Укажите тут дополнительную информацию для курьера"
+                      onChange={(e) => setDescription(e.target.value)}
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="basket__user-data__row">
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="approval"
+                      checked={isAgreed}
+                      onChange={() => setIsAgreed((prev) => !prev)}
+                    />
+                    <label
+                      style={{ marginLeft: "20px" }}
+                      htmlFor="approval"
+                      className="check-box"
                     >
-                      {errors.address}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="basket__user-data__row">
-                <div>
-                  <h3 className="basket__user-data__title">
-                    Комментарий к заказу
-                  </h3>
-                  <textarea
-                    className="basket__user-data__input"
-                    rows={5}
-                    maxLength="100"
-                    placeholder="Укажите тут дополнительную информацию для курьера"
-                    onChange={(e) => setDescription(e.target.value)}
-                  ></textarea>
-                </div>
-              </div>
-              <div className="basket__user-data__row">
-                <div>
-                  <input
-                    type="checkbox"
-                    id="approval"
-                    checked={isAgreed}
-                    onChange={() => setIsAgreed((prev) => !prev)}
-                  />
-                  <label
-                    style={{ marginLeft: "20px" }}
-                    htmlFor="approval"
-                    className="check-box"
-                  >
-                    Я даю согласие на обработку персональных данных
-                    {/* <a href={pdf} target="_blank" rel="noopener noreferrer" className="basket__link">
+                      Я даю согласие на обработку персональных данных
+                      {/* <a href={pdf} target="_blank" rel="noopener noreferrer" className="basket__link">
                        обработку персональных данных
                     </a> */}
-                  </label>
-                  {errors.isAgreed && (
-                    <div
-                      style={{
-                        color: "red",
-                        fontSize: "10px",
-                        paddingLeft: "15px",
-                      }}
-                    >
-                      {errors.isAgreed}
-                    </div>
-                  )}
+                    </label>
+                    {errors.isAgreed && (
+                      <div
+                        style={{
+                          color: "red",
+                          fontSize: "10px",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        {errors.isAgreed}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="content__basket">
-          <div className="container">
-            <div className="basket__bottom">
-              <div
-                className="basket__bottom__paymant"
-                style={{ display: "flex" }}
-              >
-                <div className="basket__bottom--input">
-                  <div>
-                    <input
-                      type="radio"
-                      id="1"
-                      name="paymentMethod"
-                      value="1"
-                      checked={paymentMethod === "1"}
-                      onChange={handlePaymentChange}
-                    />
-                    <label
-                      style={{ paddingLeft: "15px" }}
-                      htmlFor="1"
-                      className="check-box"
-                    >
-                      Наличными
-                    </label>
-                  </div>
-                  <div>
-                    <input
-                      type="radio"
-                      id="2"
-                      name="paymentMethod"
-                      value="2"
-                      checked={paymentMethod === "2"}
-                      onChange={handlePaymentChange}
-                    />
-                    <label
-                      style={{ paddingLeft: "15px" }}
-                      htmlFor="2"
-                      className="check-box"
-                    >
-                      Картой
-                    </label>
-                  </div>
-
-                  {errors.paymentMethod && (
-                    <div
-                      style={{
-                        color: "red",
-                        fontSize: "10px",
-                        paddingLeft: "15px",
-                      }}
-                    >
-                      {errors.paymentMethod}
-                    </div>
-                  )}
-                </div>
-
+          <div className="content__basket">
+            <div className="container">
+              <div className="basket__bottom">
                 <div
-                  style={{ marginLeft: "auto" }}
-                  className="cart__bottom-details"
+                  className="basket__bottom__paymant"
+                  style={{ display: "flex" }}
                 >
-                  <span>
-                    Всего товаров: <b>{totalCount}</b>
-                  </span>
-                  <span>
-                    Сумма заказа: <b>{totalPrice} ₽</b>
-                  </span>
-                </div>
-              </div>
-              <div className="cart__bottom-buttons">
-                <Link
-                  to="/"
-                  className="button pay-btn"
-                >
-                  <img
-                    src={arrowBasket}
-                    style={{ paddingRight: "10px" }}
-                    alt=""
-                  />
+                  <div className="basket__bottom--input">
+                    <div>
+                      <input
+                        type="radio"
+                        id="1"
+                        name="paymentMethod"
+                        value="1"
+                        checked={paymentMethod === "1"}
+                        onChange={handlePaymentChange}
+                      />
+                      <label
+                        style={{ paddingLeft: "15px" }}
+                        htmlFor="1"
+                        className="check-box"
+                      >
+                        Наличными
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        id="2"
+                        name="paymentMethod"
+                        value="2"
+                        checked={paymentMethod === "2"}
+                        onChange={handlePaymentChange}
+                      />
+                      <label
+                        style={{ paddingLeft: "15px" }}
+                        htmlFor="2"
+                        className="check-box"
+                      >
+                        Картой
+                      </label>
+                    </div>
 
-                  <span>Вернуться назад</span>
-                </Link>
-                <div onClick={onClickMakeOrder} className="button pay-btn">
-                  <span>Заказать</span>
+                    {errors.paymentMethod && (
+                      <div
+                        style={{
+                          color: "red",
+                          fontSize: "10px",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        {errors.paymentMethod}
+                      </div>
+                    )}
+                  </div>
+
+                  <div
+                    style={{ marginLeft: "auto" }}
+                    className="cart__bottom-details"
+                  >
+                    <span>
+                      Всего товаров: <b>{totalCount}</b>
+                    </span>
+                    <span>
+                      Сумма заказа: <b>{totalPrice} ₽</b>
+                    </span>
+                  </div>
+                </div>
+                <div className="cart__bottom-buttons">
+                  <Link to="/" className="button pay-btn">
+                    <img
+                      src={arrowBasket}
+                      style={{ paddingRight: "10px" }}
+                      alt=""
+                    />
+
+                    <span>Вернуться назад</span>
+                  </Link>
+                  <div onClick={onClickMakeOrder} className="button pay-btn">
+                    <span>Заказать</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          {isOrderSent && isVisible && (
+            <div className="notification">Заказ успешно отправлен!</div>
+          )}
         </div>
-        {isOrderSent && isVisible && (
-          <div className="notification">Заказ успешно отправлен!</div>
-        )}
       </div>
-    </div>
     </div>
   );
 }

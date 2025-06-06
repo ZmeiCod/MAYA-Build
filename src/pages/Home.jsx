@@ -1,84 +1,93 @@
 import React from "react";
-import axios from "axios";
+//// import axios from "axios";
 import { Context } from "../App";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import arrow from "../assets/ui/arrow.svg";
 import Cookies from "../components/Cookies";
 import Carousel from "../components/Carousel";
+// import Navigation from "../components/Navigation";
 import PizzaBlock from "../components/PizzaBlock";
 import Categories from "../components/Categories";
 import { setCategoryId } from "../redux/filter/slice";
 import { useSelector, useDispatch } from "react-redux";
-import Navigation from "../components/Navigation";
-
+import useProducts from "../hooks/useProducts";
+import { Helmet } from "react-helmet";
 
 export default function Home() {
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
+
   const [showCookies, setShowCookies] = React.useState(false);
   const { searchValue } = React.useContext(Context);
-  const [items, setItems] = React.useState([]);
+  //// const [items, setItems] = React.useState([]);
   const [scrollPosition, setScrollPosition] = React.useState(0);
-  const [categories, setCategories] = React.useState([]);
+  //// const [categories, setCategories] = React.useState([]);
 
-  const [loading, setLoading] = React.useState(true);
-  const [errorBackend, setErrorBackend] = React.useState(false)
+  //// const [loading, setLoading] = React.useState(true);
+  //// const [errorBackend, setErrorBackend] = React.useState(false)
+
+  const { items, categories, loading, errorBackend } = useProducts(
+    categoryId,
+    searchValue
+  );
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
 
   React.useEffect(() => {
-    const cookiesConsent = document.cookie.split('; ').find(row => row.startsWith('cookiesConsent='));
+    const cookiesConsent = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("cookiesConsent="));
     if (!cookiesConsent) {
       setShowCookies(true);
     }
   }, []);
 
-  const getProducts = async () => {
-    const category = categoryId > 0 ? `categoryId=${categoryId}` : "";
+  // const getProducts = async () => {
+  //   const category = categoryId > 0 ? `categoryId=${categoryId}` : "";
 
-    try {
-      setLoading(true);
-      const response = await axios.get(`${REACT_APP_API_URL}/api/product?${category}`);
-      const products = response.data.rows;
-      setItems(products);
-    } catch (error) {
-      setErrorBackend(true);
-      console.error("Ошибка при загрузке блюд");
-      setItems([]);
-    } finally {
-        setLoading(false); // Завершаем загрузку независимо от результата
-      }
-  };
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.get(`${REACT_APP_API_URL}/api/product?${category}`);
+  //     const products = response.data.rows;
+  //     setItems(products);
+  //   } catch (error) {
+  //     setErrorBackend(true);
+  //     console.error("Ошибка при загрузке блюд");
+  //     setItems([]);
+  //   } finally {
+  //       setLoading(false); // Завершаем загрузку независимо от результата
+  //     }
+  // };
 
-  React.useEffect(() => {
-    const getCategories = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`${REACT_APP_API_URL}/api/category`);
-        setCategories(response.data);
-      } catch (error) {
-        setErrorBackend(true);
-        console.error("Ошибка при загрузке категорий");
-      } finally {
-        setLoading(false); // Завершаем загрузку независимо от результата
-      }
-    };
+  // React.useEffect(() => {
+  //   const getCategories = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await axios.get(`${REACT_APP_API_URL}/api/category`);
+  //       setCategories(response.data);
+  //     } catch (error) {
+  //       setErrorBackend(true);
+  //       console.error("Ошибка при загрузке категорий");
+  //     } finally {
+  //       setLoading(false); // Завершаем загрузку независимо от результата
+  //     }
+  //   };
 
-    getCategories();
-  }, []);
+  //   getCategories();
+  // }, []);
 
   const getCategoryIdByName = (name) => {
     const category = categories.find((category) => category.name === name);
     return category ? category.id : null;
   };
 
-  React.useEffect(() => {
-    getProducts();
-  }, [categoryId, searchValue]);
+  // React.useEffect(() => {
+  //   getProducts();
+  // }, [categoryId, searchValue]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -109,11 +118,12 @@ export default function Home() {
     if (categoryItems.length > 0) {
       return (
         <div key={category.id}>
-          <h2 className="content__title">{category.name}</h2>
+          <h2 className="productCategory">{category.name}</h2>
           <div className="content__items">
             {categoryItems.map((item) => (
               <PizzaBlock
                 key={item.id}
+                createdAt={item.createdAt}
                 id={item.id}
                 article={item.article}
                 article40={item.article40}
@@ -137,10 +147,16 @@ export default function Home() {
 
   return (
     <div className="app">
-      <Header/>
-      <Carousel/>
+      <Helmet>
+        <meta
+          name="description"
+          content="Лучшие блюда — лучшие цены! Роллы, пицца, бургеры от шефа, +7(978)-444-14-14"
+        />
+        <meta name="keywords" content="Симферополь, доставка, еда, вкусно" />
+      </Helmet>
+      <Header />
+      <Carousel />
       {showCookies && <Cookies onClose={() => setShowCookies(false)} />}
-      {/* <Navigation></Navigation> */}
       <div className="wrapper">
         <div className="content">
           <div className="container">
@@ -150,6 +166,7 @@ export default function Home() {
                 onClickCategory={onClickCategory}
                 categories={categories}
               />
+              {/* <Navigation categories={categories} onClickCategory={onClickCategory} categoryId={categoryId}/> */}
             </div>
             {loading ? ( // Если загрузка
               <div className="content__error-info">
@@ -161,8 +178,13 @@ export default function Home() {
                 <h1>Ошибка сервера</h1>
                 <h3>Попробуйте зайти на сайт позже</h3>
               </div>
-            ) : ( // Если нет ошибок и загрузка завершена
-              hasProducts ? productItems : <div><h1>Нет продуктов для отображения.</h1></div>
+            ) : // Если нет ошибок и загрузка завершена
+            hasProducts ? (
+              productItems
+            ) : (
+              <div>
+                <h1>Нет продуктов для отображения.</h1>
+              </div>
             )}
           </div>
         </div>

@@ -71,6 +71,10 @@ html, body {
     width: calc(100vw - 30px);
     margin-top: 15px;
   }
+
+  @media(max-width:480px) {
+    margin-top: 0;
+  }
 }
 
 .arrow {
@@ -150,6 +154,12 @@ html, body {
     border-radius: 50px;
     background-color: $creamy;
   }
+  
+  @media(max-width:480px) {
+    &__basket:last-child {
+      margin-bottom: 120px;
+    }
+  }
 
   &__title {
     font-size: 32px;
@@ -163,7 +173,6 @@ html, body {
       margin-top: 25px;
       margin-bottom: 25px;
     }
-
   }
 
   &__items {
@@ -657,6 +666,7 @@ html, body {
   }
 
   &--empty {
+
     margin: 80px auto;
     width: 100%;
     text-align: center;

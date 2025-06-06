@@ -6,7 +6,7 @@ export default function Carousel() {
   const [sliders, setSliders] = React.useState([]);
   const [currentSlide, setCurrentSlide] = React.useState(0);
   
-  const getProducts = async () => {
+  const getCarousel = async () => {
     try {
       const response = await axios.get(`${REACT_APP_API_URL}/api/carousel`);
       const products = response.data;
@@ -18,7 +18,7 @@ export default function Carousel() {
   };
 
   React.useEffect(() => {
-    getProducts();
+    getCarousel();
   }, []);
 
   const slidersRef = React.useRef(sliders);

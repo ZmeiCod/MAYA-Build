@@ -13,7 +13,7 @@
     <img src="https://img.shields.io/badge/-REACT_JS-42aaff?style=for-the-badge&logo=react&logoColor=42aaff&color=0f4648" alt="react.js">
     <img src="https://img.shields.io/badge/-Bootstrap-42aaff?style=for-the-badge&logo=reactbootstrap&logoColor=42aaff&color=0f4648" alt="bootstrap">
     <img src="https://img.shields.io/badge/-SCSS-black?style=for-the-badge&logo=Sass&logoColor=white&color=ff526c" alt="scss" />
-    <img scr="https://img.shields.io/badge/-Redux-42aaff?style=for-the-badge&logo=redux&logoColor=42aaff&color=b866ff" alt="redux"/>
+    <img src="https://img.shields.io/badge/-Redux-42aaff?style=for-the-badge&logo=redux&logoColor=42aaff&color=b866ff" alt="redux" />
     <img src="https://img.shields.io/badge/-Mobx-white?style=for-the-badge&logo=mobx&logoColor=orange" alt="mobx" />
     <img src="https://img.shields.io/badge/-zod-black?style=for-the-badge&logo=zod&logoColor=blue&color=%23003841" alt="zod" />
     <img src="https://img.shields.io/badge/-Node_JS-black?style=for-the-badge&logo=nodedotjs&logoColor=3f9d39&color=876e6e" alt="node.js" />
@@ -25,35 +25,32 @@
 </div>
 </div>
 
-<div>
-  <h3 align="center">🛠 Установка</h3>
-  <br />
-  <h4 align="center">Загрузка приложения и необходимых пакетов</h4>
-  <br />
-  ```bash
-  git clone https://github.com/ZmeiCod/MayaDelivery.git
-  cd MayaDelivery
-  cd {"Раздел"}
-  npm install
-  ```
-  <br />
-  <h4 align="center">Настройка конфигурации</h4>
-  <br />
-  <div align="center">Создайте файл ".env" в каждом разделе и добавьте необходимые переменные окружения</div>
-  <br />
-  ```env
-  REACT_APP_API_URL= URL to global API-endpoint
-  APP_VERSION=
-  POSTGRES_LOGGING= true/false
-  PORT=
-  DB_USER=
-  DB_PASSWORD=
-  DB_NAME=
-  DB_HOST=
-  DB_PORT=
-  JWT_ACCESS_SECRET=
-  JWT_REFRESH_SECRET=
-  API_FRONTPAD=
-  ```
-<br />
-</div>
+## 🛠 Установка
+
+#### Загрузка приложения и необходимых пакетов
+
+```bash
+git clone https://github.com/ZmeiCod/MayaDelivery.git
+cd MayaDelivery
+cd {"Раздел"}
+npm install
+```
+#### Настройка конфигурации
+
+Создайте файл ".env" в каждом разделе. 
+
+```env
+REACT_APP_API_URL= URL to global API-endpoint
+APP_VERSION=
+POSTGRES_LOGGING= true/false
+PORT=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+DB_HOST=
+DB_PORT=
+JWT_ACCESS_SECRET=
+JWT_REFRESH_SECRET=
+API_FRONTPAD=
+```
+

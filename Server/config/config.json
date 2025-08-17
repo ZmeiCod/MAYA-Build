@@ -1,0 +1,11 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "admin",
+    "database": "maya",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432,
+    "logging": true
+  }
+}

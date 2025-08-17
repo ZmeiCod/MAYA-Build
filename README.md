@@ -23,6 +23,11 @@
     <img src="https://img.shields.io/badge/-PostgreSQL-black?style=for-the-badge&logoColor=white&logo=postgresql&color=4169E1" alt="postgresql" />
   <br />
 </div>
+
+  <br />
+    <img src="FullScreen.jpg" alt="Скриншот страницы">
+  <br />
+
 </div>
 
 ## 🛠 Установка
@@ -37,12 +42,12 @@ npm install
 ```
 #### Настройка конфигурации
 
-Создайте файл ".env" в каждом разделе. 
+Создайте файл ".env", указав переменные. 
 
 ```env
-REACT_APP_API_URL= URL to global API-endpoint
+REACT_APP_API_URL=
 APP_VERSION=
-POSTGRES_LOGGING= true/false
+POSTGRES_LOGGING=
 PORT=
 DB_USER=
 DB_PASSWORD=

@@ -1,0 +1,132 @@
+@font-face {
+  font-family: "KanitCyrillic";
+  src: url(../src/fonts/KanitCyrillic/KanitCyrillic.ttf);
+}
+
+@font-face {
+  font-family: "CygreSemiBold";
+  src: url(../src/fonts/CygreSemiBold/CygreSemiBold.ttf);
+}
+
+body {
+  font-family: "KanitCyrillic";
+  background-size: 50px;
+  background-image: url(./assets/bg-black.jpg);
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+}
+
+h1 {
+  font-family: "KanitCyrillic";
+}
+
+h3 {
+  font-family: "CygreSemiBold";
+}
+
+.BTN {
+  color: #db7611;
+  border: solid 1px #db7611;
+}
+
+.BTN:hover {
+  color: #000;
+  background-color: #db7611;
+  border: solid 1px #db7611;
+}
+
+.BTN:active {
+  background-color: #db7611;
+  border: solid 1px #db7611;
+}
+
+.product-page-btn,
+.product-page-btn-delete {
+  color: #000;
+  background-color: #f1f1f1;
+  border: none;
+
+  height: 50px;
+}
+
+.product-page-btn:hover {
+  color: #000;
+  background-color: #db7611;
+  border: none;
+}
+
+.product-page-btn-delete:hover {
+  color: #000;
+  background-color: red;
+  border: none;
+}
+
+.admin-page-btn {
+  color: #db7611;
+  background-color: #242424;
+  border: none;
+}
+
+.admin-page-btn:hover {
+  color: #000;
+  background-color: #db7611;
+  border: none;
+}
+
+.MarkBtn {
+  padding: 10px;
+}
+
+.MarkBtn.active {
+  color: #000;
+  background-color: #db7611 !important;
+  border-color: #db7611 !important;
+}
+
+.MarkBtn:hover {
+  color: #000;
+  transition: 0.3s;
+  background-color: #db7611;
+  border-color: #db7611;
+}
+
+.form-control-custom:focus {
+  border-color: #db7611;
+  box-shadow: 0 0 0 0.2rem rgba(219, 118, 17, 0.7);
+}
+
+.custom-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding-left: 150px;
+  padding-right: 150px;
+}
+
+.list-group {
+  max-width: 160px;
+}
+
+.list-group-item.active {
+  color: #000;
+  background-color: #db7611 !important;
+  border-color: #db7611 !important;
+}
+
+.list-group-item:hover {
+  color: #000;
+  transition: 0.3s;
+  background-color: #db7611;
+  border-color: #db7611;
+}
+
+.product-item-image {
+  border-radius: 10px;
+  overflow: hidden; /* Позволяет изображению оставаться в границах карточки */
+}
+
+.product-item-image img {
+  width: 100%; /* Изображение будет использовать полную ширину */
+  height: auto; /* Высота остаётся пропорциональной ширине */
+}

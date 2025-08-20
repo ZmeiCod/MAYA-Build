@@ -1,0 +1,133 @@
+@import "../variables";
+
+.categories {
+  ul {
+    display: flex;
+    justify-content: center;
+
+    li {
+      background-color: #f3f3f3;
+      padding: 13px 30px;
+      border-radius: 30px;
+      margin-right: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in-out;
+      @include noselect();
+
+      &:hover {
+        background-color: darken(#f9f9f9, 2%);
+      }
+
+      &:active {
+        background-color: darken(#f9f9f9, 5%);
+      }
+
+      &.active {
+        background-color: #282828;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow-x: hidden;
+  transition: 0.5s;
+
+  &.open {
+    width: 100%;
+  }
+
+  .modal-content {
+    background-color: $black;
+    height: 100%;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+
+    .close {
+      align-self: flex-end;
+      cursor: pointer;
+      font-size: 25px;
+      color: $creamy;
+    }
+
+    h2 {
+      padding-bottom: 15px;
+      font-size: 30px;
+      color: $orange;
+      text-align: center;
+      border-bottom: 1px solid $creamy;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      color: $orange;
+      flex-direction: column;
+
+      li {
+        width: 100%;
+        padding: 10px 0;
+        height: 30px;
+        font-size: 20px;
+        font-family: "CygreSemiBold";
+      }
+
+      li.active {
+        color: $creamy;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.cookies-banner {
+  position: fixed;
+  bottom: 120px;
+  left: 20px;
+  right: 20px;
+  max-width: 160px;
+  background-color: $black;
+  padding: 15px;
+  border: 1px solid $orange;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+
+  &__text {
+    text-align: center;
+  }
+
+  span {
+    font-size: 12px;
+    color: #f3f3f3;
+  }
+
+  a {
+    font-size: 12px;
+    color: $orange;
+    text-decoration: underline;
+  }
+
+  button {
+    color: white;
+    background-color: $orange; // Цвет кнопки
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+}
